@@ -647,6 +647,7 @@ span {
     font-size: 1.5rem; /* CHANGED */
     margin: 1rem 0 2rem; /* CHANGED */
 }
+/* PORTFOLIO (PROJECTS) SECTION */
 .portfolio {
     min-height: auto;
     padding-bottom: 10rem;
@@ -658,8 +659,7 @@ span {
 
 .portfolio .portfolio-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     gap: 2.5rem;
 }
 
@@ -667,12 +667,15 @@ span {
     position: relative;
     display: flex;
     border-radius: 2rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
+    box-shadow: 0 0 1rem var(--shadow-color); /* Corrected to use your theme variable */
     overflow: hidden;
+    aspect-ratio: 4 / 3; /* ADDED to force a consistent shape */
 }
 
 .portfolio-box img {
     width: 100%;
+    height: 100%;         /* ADDED to make the image fill the box height */
+    object-fit: cover;    /* ADDED to scale the image neatly without stretching */
     transition: .5s ease;
 }
 
@@ -725,6 +728,7 @@ span {
     font-size: 2rem;
     color: #333;
 }
+
 .contact {
     min-height: auto;
     padding-bottom: 7rem;
