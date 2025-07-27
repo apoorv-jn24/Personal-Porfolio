@@ -598,7 +598,55 @@ span {
     line-height: 1.5;
 }
 
+/* CERTIFICATIONS SECTION */
+.certifications {
+    min-height: auto;
+    padding-bottom: 10rem;
+}
 
+.certifications-container {
+    display: grid;
+    /* This allows for more, smaller cards on one line */
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr)); /* CHANGED */
+    gap: 2rem;
+}
+
+.certification-box {
+    background: var(--bg-color);
+    padding: 2.5rem 2rem 3rem; /* CHANGED */
+    border-radius: 2rem;
+    box-shadow: 0 .1rem .5rem var(--shadow-color);
+    text-align: center;
+    border-top: .6rem solid var(--main-color);
+    border-bottom: .6rem solid var(--main-color);
+    transition: .5s ease;
+}
+
+.certification-box:hover {
+    box-shadow: 0 .1rem 2rem var(--shadow-color);
+    transform: scale(1.02);
+}
+
+.certification-box i {
+    font-size: 5rem; /* CHANGED */
+    color: var(--main-color);
+}
+
+.certification-box h3 {
+    font-size: 1.8rem; /* CHANGED */
+    transition: .5s ease;
+    margin-top: 1rem;
+    color: var(--text-color);
+}
+
+.certification-box:hover h3 {
+    color: var(--main-color);
+}
+
+.certification-box p {
+    font-size: 1.5rem; /* CHANGED */
+    margin: 1rem 0 2rem; /* CHANGED */
+}
 .portfolio {
     min-height: auto;
     padding-bottom: 10rem;
