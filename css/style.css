@@ -121,10 +121,11 @@ section {
 .home {
     display: flex;
     align-items: center;
+    
 }
 
 .home .home-content {
-    max-width: 44rem;
+    max-width: 42rem;
 }
 
 .home-content h3 {
