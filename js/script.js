@@ -1,4 +1,4 @@
-/*========== menu icon navbar ==========*/
+/*========== Menu Icon Navbar ==========*/
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 
@@ -7,8 +7,7 @@ menuIcon.onclick = () => {
     navbar.classList.toggle('active');
 };
 
-
-/*========== scroll sections active link ==========*/
+/*========== Scroll Sections Active Link ==========*/
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
 
@@ -19,55 +18,50 @@ window.onscroll = () => {
         let height = sec.offsetHeight;
         let id = sec.getAttribute('id');
 
-        if(top >= offset && top < offset + height) {
+        if (top >= offset && top < offset + height) {
             navLinks.forEach(links => {
                 links.classList.remove('active');
                 document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
             });
-        };
+        }
     });
 
+    /*========== Sticky Navbar ==========*/
+    let header = document.querySelector('.header');
+    header.classList.toggle('sticky', window.scrollY > 100);
 
-/*========== sticky navbar ==========*/
-let header = document.querySelector('.header');
-
-header.classList.toggle('sticky', window.scrollY > 100);
-
-
-/*========== remove menu icon navbar when click navbar link (scroll) ==========*/
-menuIcon.classList.remove('bx-x');
-navbar.classList.remove('active');
-
+    /*========== Close Menu on Scroll ==========*/
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
 };
 
-
-/*========== swiper ==========*/
+/*========== Swiper Initialization ==========*/
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     spaceBetween: 50,
     loop: true,
     grabCursor: true,
     pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
+        el: ".swiper-pagination",
+        clickable: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
 });
 
-
-/*========== dark light mode ==========*/
+/*========== Dark Light Mode Toggle ==========*/
 let darkModeIcon = document.querySelector('#darkMode-icon');
 
-darkModeIcon.onclick = () => {
-    darkModeIcon.classList.toggle('bx-sun');
-    document.body.classList.toggle('dark-mode');
-};
+if (darkModeIcon) {
+    darkModeIcon.onclick = () => {
+        darkModeIcon.classList.toggle('bx-sun');
+        document.body.classList.toggle('dark-mode');
+    };
+}
 
-
-/*========== scroll reveal ==========*/
+/*========== Scroll Reveal ==========*/
 ScrollReveal({
     // reset: true,
     distance: '80px',
