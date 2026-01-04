@@ -428,18 +428,24 @@
     <section class="contact" id="contact">
         <h2 class="heading">Contact <span>Me!</span></h2>
 
-        <form action="#">
-            <div class="input-box">
-                <input type="text" placeholder="Full Name">
-                <input type="email" placeholder="Email Address">
-            </div>
-            <div class="input-box">
-                <input type="number" placeholder="Mobile Number">
-                <input type="text" placeholder="Email Subject">
-            </div>
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
-            <input type="submit" value="Send Message" class="btn">
-        </form>
+        <form action="https://api.web3forms.com/submit" method="POST">
+
+    <!-- REQUIRED: Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="29369faf-3c9e-4fa9-8876-79bc9ed9404b">
+    <div class="input-box">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+    </div>
+    <div class="input-box">
+        <input type="number" name="phone" placeholder="Mobile Number">
+    </div>
+    <textarea name="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+    <!-- Optional: redirect after submit -->
+    <!-- <input type="hidden" name="redirect" value="https://yourwebsite.com/thankyou.html"> -->
+    <input type="submit" value="Send Message" class="btn">
+
+</form>
+
     </section>
 
     <!-- footer design -->
