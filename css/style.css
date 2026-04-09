@@ -598,8 +598,6 @@ span {
 .certification-box .cert-thumbnail {
     width: 100%;
     aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: center top;
     border-radius: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -891,9 +889,7 @@ img {
 }
 
 @media (max-width: 991px) {
-    .navbar a:nth-child(1) {
-        color: var(--main-color);
-    }
+
     
     .navbar a.active::before {
         background: var(--main-color);
@@ -979,10 +975,7 @@ img {
         color: var(--text-color);
     }
     
-    .navbar a:nth-child(1),
-    .navbar a:nth-child(2) {
-        color: var(--text-color);
-    }
+
     
     .navbar a.active {
         color: var(--main-color);
@@ -1189,9 +1182,21 @@ img {
   z-index: 1000;
 }
 
-.chatbot-toggler .material-symbols-outlined,
-.chatbot-toggler .material-symbols-rounded {
-  font-size: 22px;
+.chatbot-toggler i {
+  font-size: 24px;
+}
+
+body.show-chatbot .chatbot-toggler .bx-bot,
+body.show-chatbot .chatbot-toggler .chatbot-text {
+  display: none;
+}
+
+body.show-chatbot .chatbot-toggler .bx-x {
+  display: block;
+}
+
+.chatbot-toggler .bx-x {
+  display: none;
 }
 
 /* Chatbot Window */
@@ -1210,6 +1215,10 @@ img {
   z-index: 1000;
 }
 
+body.show-chatbot .chatbot {
+  display: flex;
+}
+
 .chatbot header {
   background: #000;
   color: #fff;
@@ -1219,10 +1228,16 @@ img {
   align-items: center;
 }
 
+.chatbot header .close-btn {
+  cursor: pointer;
+  font-size: 24px;
+}
+
 .chatbox {
   max-height: 350px;
   overflow-y: auto;
   padding: 15px;
+  list-style: none;
 }
 
 .chat {
@@ -1232,8 +1247,13 @@ img {
   margin-bottom: 15px;
 }
 
-.chat.incoming span {
+.chat.incoming i {
   font-size: 22px;
+  background: var(--main-color);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .chat p {
