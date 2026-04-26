@@ -1,8 +1,7 @@
 /* ═══════════════════ SELECTORS ═══════════════════ */
 const menuIcon = document.querySelector("#menu-icon");
 const navbar = document.querySelector(".navbar");
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("header nav a");
+
 const themeToggle = document.querySelector("#darkMode-icon");
 const contactForm = document.querySelector("#contactForm");
 const activitySection = document.querySelector("#activity");
@@ -15,53 +14,31 @@ if (menuIcon && navbar) {
     navbar.classList.toggle("active");
   });
 }
-
-/* ═══════════════════ SCROLL-SPY (active nav link) ═══════════════════ */
-const updateActiveNav = () => {
-  const scrollPosition = window.scrollY + 160;
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    const id = section.getAttribute("id");
-
-    if (
-      scrollPosition >= sectionTop &&
-      scrollPosition < sectionTop + sectionHeight
-    ) {
-      navLinks.forEach((link) => link.classList.remove("active"));
-      const activeLink = document.querySelector(`header nav a[href="#${id}"]`);
-      if (activeLink) {
-        activeLink.classList.add("active");
-      }
-    }
-  });
-
-  // Close mobile nav on scroll
-  if (navbar && menuIcon) {
-    navbar.classList.remove("active");
-    menuIcon.classList.remove("bx-x");
-  }
-};
-
-window.addEventListener("scroll", updateActiveNav);
-window.addEventListener("load", updateActiveNav);
+/* Scroll-spy handled by IntersectionObserver below */
 
 /* ═══════════════════ DARK MODE ═══════════════════ */
 const storedTheme = localStorage.getItem("portfolio-theme");
 if (storedTheme === "dark") {
   document.body.classList.add("dark");
-  document.documentElement.classList.add("dark");
   themeToggle?.classList.replace("bx-moon", "bx-sun");
+  // Set initial dark theme for github stats
+  const ghStatsImg = document.getElementById("github-stats-img");
+  if(ghStatsImg) {
+      ghStatsImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true`;
+  }
 }
 
 themeToggle?.addEventListener("click", () => {
   document.body.classList.toggle("dark");
-  document.documentElement.classList.toggle("dark");
   const isDark = document.body.classList.contains("dark");
   themeToggle.classList.toggle("bx-sun", isDark);
   themeToggle.classList.toggle("bx-moon", !isDark);
   localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+  // Update GitHub stats theme
+  const ghStatsImg = document.getElementById("github-stats-img");
+  if(ghStatsImg) {
+      ghStatsImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=${isDark ? 'dark' : 'default'}&hide_border=true&count_private=true`;
+  }
 });
 
 /* ═══════════════════ SCROLL REVEAL ═══════════════════ */
@@ -517,20 +494,23 @@ document.addEventListener("DOMContentLoaded", () => {
   allSections.forEach((sec) => activeSectionObserver.observe(sec));
 })();
 
-// === NEW: Contact form — Formspree AJAX submit with loading state (Fix #3) ===
-// This handler calls e.preventDefault() immediately so it wins over the older
-// non-async submit listener registered earlier in this file.
+// === Contact form — Formspree AJAX submit with spinner + inline error messages ===
 (function () {
-  const form = document.querySelector("#contactForm");
-  const submitBtn = document.querySelector("#cfSubmitBtn");
-  const successMsg = document.querySelector("#formSuccess");
+  var form = document.querySelector("#contactForm");
+  var submitBtn = document.querySelector("#cfSubmitBtn");
+  var successMsg = document.querySelector("#formSuccess");
+  var errorMsg = document.querySelector("#formError");
+  var notice = document.querySelector("#formspreeNotice");
 
   if (!form) return;
 
-  // Snapshot original button markup so we can restore it after submission.
-  const originalBtnHTML = submitBtn ? submitBtn.innerHTML : "Send Message";
+  // ── Show setup notice if Formspree ID is still a placeholder ──
+  var action = form.getAttribute("action") || "";
+  if (action.includes("YOUR_FORM_ID") || action.trim() === "") {
+    if (notice) notice.style.display = "block";
+  }
 
-  // Blur-time validation (show errors as user leaves each field)
+  // ── Blur-time validation ──
   form
     .querySelectorAll("input:not([type='hidden']), textarea")
     .forEach(function (field) {
@@ -539,12 +519,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+  // ── Submit handler ──
   form.addEventListener("submit", async function (e) {
-    // Always prevent traditional form submission — we use fetch instead.
     e.preventDefault();
-    e.stopImmediatePropagation(); // stop the older listener from also running
+    e.stopImmediatePropagation();
 
-    // Validate every visible field
+    // Validate all visible fields
     var fields = form.querySelectorAll("input:not([type='hidden']), textarea");
     var isValid = true;
     fields.forEach(function (field) {
@@ -552,12 +532,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     if (!isValid) return;
 
-    // --- Loading state ---
+    // ── Loading state: add .loading class for CSS-driven spinner ──
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending\u2026";
+      submitBtn.classList.add("loading");
     }
     if (successMsg) successMsg.style.display = "none";
+    if (errorMsg) errorMsg.style.display = "none";
 
     try {
       var data = new FormData(form);
@@ -568,9 +549,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (res.ok) {
-        // Success
+        // ── Success ──
         form.reset();
-        // Clear any validation error states
+        // Reset floating labels (clear :not(:placeholder-shown) state)
+        form.querySelectorAll("input, textarea").forEach(function (f) {
+          f.blur();
+        });
+        // Clear validation error states
         form.querySelectorAll(".cf-field").forEach(function (w) {
           w.classList.remove("has-error");
           var err = w.querySelector(".error-message");
@@ -583,30 +568,29 @@ document.addEventListener("DOMContentLoaded", () => {
           }, 6000);
         }
       } else {
+        // ── Server error — show inline error div ──
         var json = {};
-        try {
-          json = await res.json();
-        } catch (_) {}
-        var msg =
-          (json.errors &&
-            json.errors
-              .map(function (er) {
-                return er.message;
-              })
-              .join(", ")) ||
-          "Submission failed. Please try again or email directly.";
-        alert(msg);
+        try { json = await res.json(); } catch (_) {}
+        if (errorMsg) {
+          errorMsg.style.display = "block";
+          setTimeout(function () {
+            errorMsg.style.display = "none";
+          }, 8000);
+        }
       }
     } catch (err) {
-      // TODO: Replace email below with your address
-      alert(
-        "Network error \u2014 please email apoorvjainji@gmail.com directly.",
-      );
+      // ── Network error — show inline error div ──
+      if (errorMsg) {
+        errorMsg.style.display = "block";
+        setTimeout(function () {
+          errorMsg.style.display = "none";
+        }, 8000);
+      }
     } finally {
-      // Restore button in all cases
+      // ── Always restore button ──
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHTML;
+        submitBtn.classList.remove("loading");
       }
     }
   });
