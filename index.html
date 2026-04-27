@@ -8,8 +8,9 @@
     <meta name="description" content="Apoorv Jain is a full-stack developer building responsive web apps, solving LeetCode problems, and sharing practical project work through a polished personal portfolio.">
     <meta property="og:title" content="Apoorv Jain | Full-Stack Developer">
     <meta property="og:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, certifications, and hands-on development experience.">
-    <meta property="og:image" content="images/og-image.png">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22630%22 viewBox=%220 0 1200 630%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%231a1a2e%22/><text x=%2250%25%22 y=%2250%25%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22%23754ef9%22 text-anchor=%22middle%22 dy=%22.3em%22>Apoorv Jain | Portfolio</text></svg>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -28,7 +29,7 @@
             <button class="theme-toggle bx bx-moon" id="darkMode-icon" aria-label="Toggle dark mode"></button>
         </nav>
 
-        <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="nav-resume-btn" target="_blank" rel="noopener noreferrer">
+        <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="nav-resume-btn" target="_blank" onclick="setTimeout(() => { alert('If the download does not start automatically, we will open a fallback viewer.'); window.open('https://drive.google.com/file/d/1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm/view?usp=sharing', '_blank'); }, 2500)" rel="noopener noreferrer">
             <i class='bx bx-download'></i> Resume
         </a>
 
@@ -38,19 +39,22 @@
     <!-- ═══════════════════ HERO ═══════════════════ -->
     <section class="home reveal-on-scroll" id="home">
         <div class="home-content">
-            <h3>Hello, I am</h3>
+            <div class="hero-availability">
+                <span class="status-dot"></span> Available for Full-time
+            </div>
             <h1>Apoorv Jain</h1>
+            <h3 class="hero-vp">Software Engineer & Innovator</h3>
 
             <div class="hero-typed-wrap">
                 <span class="typed-prefix">I'm a </span><span id="typed-output"></span>
             </div>
 
-            <p>Turning ideas into production-ready web applications with Java, React, and modern full-stack tools &mdash; backed by 200+ LeetCode problems and real-world internship experience.</p>
+            <p>I craft high-performance, user-centric web applications. Specializing in robust backend architectures and dynamic frontend experiences to drive business impact.</p>
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <strong>81</strong>
-                    <span>GitHub Commits</span>
+                    <strong>Java &amp; React</strong>
+                    <span>Core Stack</span>
                 </div>
                 <div class="hero-stat">
                     <strong>6+</strong>
@@ -58,7 +62,7 @@
                 </div>
                 <div class="hero-stat">
                     <strong>200+</strong>
-                    <span>Problems Solved</span>
+                    <span>Problems Solved <br>(as of Jan 2025)</span>
                 </div>
             </div>
 
@@ -71,7 +75,7 @@
             </div>
 
             <div class="hero-actions">
-                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn" target="_blank" rel="noopener noreferrer">Download CV</a>
+                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn" target="_blank" rel="noopener noreferrer" onclick="setTimeout(() => { alert('If the download does not start automatically, we will open a fallback viewer.'); window.open('https://drive.google.com/file/d/1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm/view?usp=sharing', '_blank'); }, 2500)">Download CV</a>
                 <a href="#contact" class="btn btn-outline">Contact Me</a>
             </div>
         </div>
@@ -89,9 +93,9 @@
 
         <div class="about-content">
             <h2 class="heading">About <span>Me</span></h2>
-            <h3>Full-Stack Developer · Problem Solver · Open Source Contributor</h3>
+            <h3>Full-Stack Developer · Problem Solver · DSA Enthusiast</h3>
             <p>I architect and ship full-stack web applications using Java, React, and Node.js &mdash; from clean backend APIs to responsive, user-friendly frontends. With 200+ LeetCode problems solved and hands-on internship experience, I bring strong DSA fundamentals and practical engineering skills to every project.</p>
-            <p>Currently completing my B.Tech in Computer Science at Coer University, I actively build projects that address real user needs &mdash; from e-commerce platforms to interactive gaming applications &mdash; and contribute to open-source communities.</p>
+            <p>Currently completing my B.Tech in Computer Science at Coer University, I actively build projects that address real user needs &mdash; from e-commerce platforms to interactive gaming applications.</p>
 
             <div class="about-info">
                 <div class="info-card">
@@ -105,7 +109,6 @@
                     <i class='bx bxs-map'></i>
                     <div>
                         <h5>Location</h5>
-                        <!-- TODO: Replace with your city -->
                         <p>Roorkee, India</p>
                     </div>
                 </div>
@@ -114,12 +117,18 @@
                     <div>
                         <h5>Email</h5>
                         <p>
-                            <!-- TODO: Replace with your email -->
                             <a href="mailto:apoorvjainji@gmail.com">apoorvjainji@gmail.com</a>
                             <button class="copy-email-btn" data-email="apoorvjainji@gmail.com" aria-label="Copy email to clipboard" title="Copy email">
                                 <i class='bx bx-copy'></i>
                             </button>
                         </p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class='bx bx-laptop'></i>
+                    <div>
+                        <h5>Currently Exploring</h5>
+                        <p>Spring Boot microservices + System Design</p>
                     </div>
                 </div>
             </div>
@@ -130,16 +139,10 @@
     <section class="skills reveal-on-scroll" id="skills">
         <h2 class="heading">My <span>Skills</span></h2>
 
-        <div class="skills-legend">
-            <span><span class="skill-dot dot-proficient"></span> Proficient</span>
-            <span><span class="skill-dot dot-familiar"></span> Familiar</span>
-            <span><span class="skill-dot dot-learning"></span> Learning</span>
-        </div>
-
         <div class="skills-container">
             <!-- ── Frontend Development ── -->
             <div class="skills-box">
-                <h3 class="skills-title">Frontend Development</h3>
+                <h3 class="skills-title"><i class="bx bx-code-alt"></i> Frontend Development</h3>
                 <div class="skills-content">
                     <div class="skills-item">
                         <i class='bx bxl-html5'></i>
@@ -176,7 +179,7 @@
 
             <!-- ── Backend & APIs ── -->
             <div class="skills-box">
-                <h3 class="skills-title">Backend &amp; APIs</h3>
+                <h3 class="skills-title"><i class="bx bx-server"></i> Backend &amp; APIs</h3>
                 <div class="skills-content">
                     <div class="skills-item">
                         <i class='bx bxl-java'></i>
@@ -225,7 +228,7 @@
 
             <!-- ── Tools & DevOps ── -->
             <div class="skills-box">
-                <h3 class="skills-title">Tools &amp; DevOps</h3>
+                <h3 class="skills-title"><i class="bx bx-wrench"></i> Tools &amp; DevOps</h3>
                 <div class="skills-content">
                     <div class="skills-item">
                         <i class='bx bxl-git'></i>
@@ -274,6 +277,28 @@
         </div>
     </section>
 
+    <!-- ═══════════════════ ACHIEVEMENTS ═══════════════════ -->
+    <section class="achievements reveal-on-scroll" id="achievements">
+        <h2 class="heading">Technical <span>Achievements</span></h2>
+        <div class="achievements-container">
+            <div class="achievement-card">
+                <i class='bx bxs-award'></i>
+                <h3>LeetCode Gold Badge</h3>
+                <p>Awarded for consistent performance and solving high-difficulty problems.</p>
+            </div>
+            <div class="achievement-card">
+                <i class='bx bx-run'></i>
+                <h3>200-Day Streak</h3>
+                <p>Maintained a daily coding habit on LeetCode (as of Jan 2025).</p>
+            </div>
+            <div class="achievement-card">
+                <i class='bx bx-check-circle'></i>
+                <h3>200+ Problems Solved</h3>
+                <p>Mastered core DSA patterns across arrays, strings, and dynamic programming.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- ═══════════════════ LIVE ACTIVITY ═══════════════════ -->
     <section class="activity reveal-on-scroll" id="activity" data-github-username="apoorv-jn24">
         <h2 class="heading">Live <span>Activity</span></h2>
@@ -309,16 +334,15 @@
                 </div>
 
                 <!-- GitHub README Stats — auto-updates, zero backend needed -->
-                <!-- TODO: Confirm username apoorv-jn24 is correct below -->
                 <div class="github-stats-embed">
                     <img src="https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=default&hide_border=true&count_private=true"
-                         alt="GitHub Stats for Apoorv Jain" loading="lazy" />
+                         id="github-stats-img" alt="GitHub Stats for Apoorv Jain" loading="lazy" />
                 </div>
 
                 <p class="activity-summary">I code consistently — here's my contribution activity.</p>
 
                 <div class="activity-heatmap">
-                    <img src="https://ghchart.rshah.org/754ef9/apoorv-jn24" alt="GitHub contribution chart for Apoorv Jain" loading="lazy">
+                    <img src="https://ghchart.rshah.org/754ef9/apoorv-jn24" alt="GitHub contribution chart for Apoorv Jain" loading="lazy" onerror="this.outerHTML='<span style=\'color: var(--muted-color); font-size: 1.4rem;\\'>GitHub heatmap currently unavailable.</span>'">
                 </div>
 
                 <div class="activity-feed">
@@ -350,6 +374,7 @@
                     <div class="stat-card">
                         <span class="stat-label">Max Streak</span>
                         <strong class="stat-value">200 days</strong>
+                        <span style="font-size: 1.1rem; opacity: 0.7;">(as of Jan 2025)</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-label">Badge</span>
@@ -364,17 +389,17 @@
                 <div class="lc-difficulty">
                     <div class="lc-bar-row">
                         <span class="lc-label lc-easy">Easy</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-easy" style="width:65%"></div></div>
+                        <div class="lc-bar"><div class="lc-fill lc-fill-easy" style="width:40%"></div></div>
                         <span class="lc-count">~80</span>
                     </div>
                     <div class="lc-bar-row">
                         <span class="lc-label lc-medium">Medium</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-medium" style="width:48%"></div></div>
+                        <div class="lc-bar"><div class="lc-fill lc-fill-medium" style="width:47.5%"></div></div>
                         <span class="lc-count">~95</span>
                     </div>
                     <div class="lc-bar-row">
                         <span class="lc-label lc-hard">Hard</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-hard" style="width:13%"></div></div>
+                        <div class="lc-bar"><div class="lc-fill lc-fill-hard" style="width:12.5%"></div></div>
                         <span class="lc-count">~25</span>
                     </div>
                 </div>
@@ -391,7 +416,6 @@
                     <span class="timeline-date">Aug 2024 &ndash; Sep 2024 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Java Developer Intern</h3>
                     <h4 class="timeline-company">
-                        <!-- TODO: Replace with actual CodSoft company logo image -->
                         <span class="company-logo-placeholder">CS</span>
                         CodSoft, Remote
                     </h4>
@@ -407,12 +431,10 @@
                     <span class="timeline-date">Aug 2023 &ndash; Sep 2023 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Python Developer Intern</h3>
                     <h4 class="timeline-company">
-                        <!-- TODO: Replace with actual CodSoft company logo image -->
                         <span class="company-logo-placeholder">CS</span>
                         CodSoft, Remote
                     </h4>
                     <ul class="timeline-bullets">
-                        <!-- TODO: Replace metrics below with your actual Python intern results -->
                         <li>Engineered 3 Python utilities (To-Do Manager, Calculator, Quiz App) with modular design &mdash; reduced code duplication by ~50%</li>
                         <li>Implemented robust input validation across all scripts, achieving zero unhandled exceptions in peer review</li>
                         <li>Documented all 3 projects with README files and inline comments, cutting onboarding review time by ~30%</li>
@@ -443,10 +465,19 @@
             <div class="edu-card edu-right">
                 <span class="edu-date">2020 &ndash; 2022</span>
                 <h3 class="edu-title">Higher Secondary (XII)</h3>
-                <!-- TODO: Replace with your actual school name if different -->
                 <h4 class="edu-institution">Yoginath Vidyapeeth</h4>
                 <p class="edu-detail">Percentage: <strong>90.4%</strong></p>
             </div>
+
+            <!-- Secondary (X) — LEFT side -->
+            <div class="edu-card edu-left">
+                <span class="edu-date">2018 &ndash; 2020</span>
+                <h3 class="edu-title">Secondary (X)</h3>
+                <h4 class="edu-institution">Yoginath Vidyapeeth</h4>
+                <p class="edu-detail">Percentage: <strong>92.6%</strong></p>
+            </div>
+            <div class="edu-dot"></div>
+            <div class="edu-spacer"></div>
 
         </div>
     </section>
@@ -456,36 +487,49 @@
         <h2 class="heading">My <span>Projects</span></h2>
 
         <div class="projects-grid">
-
-            <!-- Card 1: Tic Tac Toe Game -->
             <div class="project-card">
-                <span class="case-study-number">01</span>
-                <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);">
-                        <span class="project-cover-title">Tic Tac Toe</span>
-                        <span class="project-cover-stack">Java &middot; Swing &middot; OOP</span>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-name">Tic Tac Toe Game <span class="project-tag">&ndash; Java App</span></h3>
-                    <p class="project-desc">A Java-based 2-player Tic Tac Toe with GUI features, win detection, and game reset &mdash; built using Swing and OOP principles.</p>
-                    <div class="tech-badges">
-                        <span class="tech-badge">Java</span>
-                        <span class="tech-badge">Swing</span>
-                        <span class="tech-badge">OOP</span>
-                    </div>
-                    <div class="project-btns">
-                        <!-- TODO: Replace with actual live demo URL if available -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <!-- TODO: Replace with actual GitHub repo URL -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-github">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <span class="case-study-number">06</span>
 
+    <div class="project-frame">
+        <div class="project-cover" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);">
+            <span class="project-cover-title">Study Buddy</span>
+            <span class="project-cover-stack">Productivity &middot; JavaScript &middot; Web App</span>
+        </div>
+    </div>
+
+    <div class="project-info">
+        <h3 class="project-name">
+            Study Buddy 
+            <span class="project-tag">&ndash; Productivity App</span>
+        </h3>
+
+        <p class="project-desc">
+            <strong>Problem:</strong> Students struggle to stay consistent and manage study time effectively.<br>
+            <strong>Solution:</strong> Built a web app to organize study sessions, track tasks, and improve focus.<br>
+            <strong>Tech Stack:</strong> HTML, CSS, JavaScript.<br>
+            <strong>Impact:</strong> Helps users build disciplined study habits and improve productivity.
+        </p>
+
+        <div class="tech-badges">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">HTML</span>
+            <span class="tech-badge">CSS</span>
+        </div>
+
+        <div class="project-btns">
+            <a href="https://study-buddy-pi-wheat.vercel.app/" target="_blank" rel="noopener" class="btn-demo">
+                Live Demo &#8599;
+            </a>
+
+            <a href="https://github.com/apoorv-jn24/study-buddy" target="_blank" rel="noopener" class="btn-github">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </div>
+</div>
             <!-- Card 2: Personal Portfolio Website -->
             <div class="project-card">
                 <span class="case-study-number">02</span>
@@ -532,8 +576,7 @@
                     </div>
                     <div class="project-btns">
                         <a href="https://apoorv-jn24.github.io/Shopping-Website-Clone/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <!-- TODO: Replace with actual GitHub repo URL -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://github.com/apoorv-jn24/YOUR_REPO_NAME_HERE" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -560,8 +603,7 @@
                     </div>
                     <div class="project-btns">
                         <a href="https://apoorv-jn24.github.io/Electronic-Shop/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <!-- TODO: Replace with actual GitHub repo URL -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://github.com/apoorv-jn24/YOUR_REPO_NAME_HERE" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -588,8 +630,7 @@
                     </div>
                     <div class="project-btns">
                         <a href="https://apoorv-jn24.github.io/TradeHub/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <!-- TODO: Replace with actual GitHub repo URL -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://github.com/apoorv-jn24/YOUR_REPO_NAME_HERE" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -597,35 +638,62 @@
                 </div>
             </div>
 
-            <!-- Card 6: Budget Tracker -->
             <div class="project-card">
-                <span class="case-study-number">06</span>
-                <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a5276 100%);">
-                        <span class="project-cover-title">Budget Tracker</span>
-                        <span class="project-cover-stack">JavaScript &middot; Chart.js &middot; LocalStorage</span>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-name">Budget Tracker <span class="project-tag">&ndash; Web App</span></h3>
-                    <p class="project-desc">A personal finance tracker with visual expense breakdowns and monthly budget goal management.</p>
-                    <div class="tech-badges">
-                        <span class="tech-badge">JavaScript</span>
-                        <span class="tech-badge">Chart.js</span>
-                        <span class="tech-badge">LocalStorage</span>
-                    </div>
-                    <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/Budget-Tracker/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <!-- TODO: Replace with actual GitHub repo URL -->
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-github">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-                            GitHub
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <span class="case-study-number">06</span>
+
+    <div class="project-frame">
+        <div class="project-cover" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
+            <span class="project-cover-title">VideoMind AI</span>
+            <span class="project-cover-stack">AI &middot; JavaScript &middot; APIs</span>
+        </div>
+    </div>
+
+    <div class="project-info">
+        <h3 class="project-name">
+            VideoMind AI 
+            <span class="project-tag">&ndash; AI Web App</span>
+        </h3>
+
+        <p class="project-desc">
+            <strong>Problem:</strong> Long videos are time-consuming to watch and extract key insights from.<br>
+            <strong>Solution:</strong> Built an AI-powered tool that summarizes video content into concise insights using modern APIs.<br>
+            <strong>Tech Stack:</strong> JavaScript, AI APIs, REST APIs.<br>
+            <strong>Impact:</strong> Helps users quickly understand video content without watching it.
+        </p>
+
+        <div class="tech-badges">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">AI APIs</span>
+            <span class="tech-badge">REST API</span>
+        </div>
+
+        <div class="project-btns">
+            <!-- If you have live demo, replace # -->
+            <a href="#" target="_blank" rel="noopener" class="btn-demo">
+                Live Demo &#8599;
+            </a>
+
+            <a href="https://github.com/apoorv-jn24/VideoMInd-Ai" target="_blank" rel="noopener" class="btn-github">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
+                </svg>
+                GitHub
+             </a>
+             </div>
+             </div>
+          </div>
 
         </div>
+
+        <!-- ═══════════════════ FULL-TIME CTA ═══════════════════ -->
+        <section class="fulltime-cta reveal-on-scroll">
+            <h2>Open to full-time roles starting June 2026</h2>
+            <p>Currently seeking opportunities in Software Engineering and Full-Stack Development.</p>
+            <div class="btn-group">
+                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn btn-white" target="_blank" rel="noopener noreferrer">Download CV</a>
+                <a href="#contact" class="btn btn-outline-white">Contact Me</a>
+            </div>
+        </section>
     </section>
 
     <!-- ═══════════════════ CERTIFICATIONS ═══════════════════ -->
@@ -636,15 +704,13 @@
                 <h3>LeetCode 200-Day Streak</h3>
                 <p>LeetCode</p>
                 <span class="cert-date">Issued: Jan 2025</span>
-                <!-- TODO: Replace href with direct credential URL -->
-                <a href="images/leetcode-badge.png" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
+                <a href="https://leetcode.com/u/apoorv_jain_24/" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
             </div>
 
             <div class="certification-box">
                 <h3>Technology Job Simulation</h3>
                 <p>Deloitte (Forage)</p>
                 <span class="cert-date">Issued: Jul 2025</span>
-                <!-- TODO: Replace with actual credential verification link if different -->
                 <a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_htMcpeCeiZcrjo9rE_1753348547524_completion_certificate.pdf" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
             </div>
 
@@ -652,7 +718,6 @@
                 <h3>Java Programming and Software Engineering Fundamentals</h3>
                 <p>Duke University (Coursera)</p>
                 <span class="cert-date">Issued: Nov 2022</span>
-                <!-- TODO: Replace with actual Coursera credential URL -->
                 <a href="https://www.coursera.org/account/accomplishments" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
             </div>
 
@@ -660,50 +725,17 @@
                 <h3>Responsive Web Design</h3>
                 <p>freeCodeCamp</p>
                 <span class="cert-date">Issued: Dec 2021</span>
-                <!-- TODO: Replace with actual freeCodeCamp credential URL -->
-                <a href="https://www.freecodecamp.org/certification/" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
+                <a href="https://www.freecodecamp.org/certification/apoorvjain/responsive-web-design" target="_blank" class="btn btn-small" rel="noopener noreferrer">Verify &#8594;</a>
             </div>
         </div>
     </section>
-
-    <!--
-    ═══════════════════ TESTIMONIALS / RECOMMENDATIONS ═══════════════════
-    TODO: Testimonials — Uncomment and fill when real testimonials are available
-    from managers, mentors, or faculty members.
-
-    <section class="testimonials reveal-on-scroll" id="testimonials">
-        <h2 class="heading">What People <span>Say</span></h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p class="testimonial-headline">TODO: Bold outcome headline above the full quote</p>
-                <blockquote class="testimonial-quote">
-                    "TODO: Full quote from your manager, mentor, or faculty member about working with you."
-                </blockquote>
-                <div class="testimonial-author">
-                    <img src="TODO: Replace with author photo URL" alt="TODO: Author name">
-                    <div>
-                        <h4>TODO: Author Name</h4>
-                        <span>TODO: Author Title, Company</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
 
     <!-- ═══════════════════ MARQUEE TICKER ═══════════════════ -->
     <div class="marquee-section" aria-hidden="true">
         <div class="marquee-track">
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
-            <span>OPEN TO OPPORTUNITIES &#10022;&nbsp;</span>
+            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&#10022;</span>
+            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&#10022;</span>
+            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&#10022;</span>
         </div>
     </div>
 
@@ -714,7 +746,6 @@
 
             <div class="contact-email-row">
                 <span class="contact-email-label">Or email me directly:</span>
-                <!-- TODO: Replace with your email address -->
                 <span class="contact-email-value" id="contactEmailValue">apoorvjainji@gmail.com</span>
                 <button class="copy-email-btn" data-email="apoorvjainji@gmail.com" aria-label="Copy email to clipboard" title="Copy email">
                     <i class='bx bx-copy'></i>
@@ -722,8 +753,13 @@
                 </button>
             </div>
 
-            <!-- TODO: Replace YOUR_FORM_ID with your actual Formspree form ID (sign up at formspree.io) -->
-            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate id="contactForm">
+            <div class="contact-social-links" style="text-align: center; margin-top: 2rem; margin-bottom: 3rem;">
+                <a href="https://wa.me/91YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #25D366; border-color: #25D366; color: white; display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.2rem 2.4rem;">
+                    <i class='bx bxl-whatsapp' style="font-size: 2.2rem;"></i> Chat on WhatsApp
+                </a>ī
+            </div>
+
+            <form action="https://formspree.io/f/xkokeypz" method="POST" novalidate id="contactForm">
                 <input type="hidden" name="_subject" value="Portfolio Contact">
 
                 <div class="cf-field">

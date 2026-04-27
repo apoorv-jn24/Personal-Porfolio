@@ -4109,3 +4109,116 @@ body.dark .formspree-notice code {
         gap: 1.5rem;
     }
 }
+
+/* ═══════════════════ ACHIEVEMENTS ═══════════════════ */
+.achievements {
+    background: var(--bg-color);
+}
+.achievements-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 2rem 7% 0;
+}
+.achievement-card {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 1.6rem;
+    padding: 3.5rem 3rem;
+    text-align: center;
+    transition: 0.4s ease;
+}
+.achievement-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--main-color);
+    box-shadow: 0 1rem 2rem var(--shadow-color);
+}
+.achievement-card i {
+    font-size: 4.8rem;
+    color: var(--main-color);
+    margin-bottom: 2rem;
+}
+.achievement-card h3 {
+    font-size: 2.3rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-color);
+}
+.achievement-card p {
+    font-size: 1.55rem;
+    color: var(--muted-color);
+    line-height: 1.6;
+}
+
+/* ═══════════════════ FULL-TIME CTA ═══════════════════ */
+.fulltime-cta {
+    background: linear-gradient(135deg, var(--main-color) 0%, #4c1d95 100%);
+    padding: 7rem 3rem;
+    text-align: center;
+    border-radius: 2.4rem;
+    margin: 6rem 7% 10rem;
+    color: var(--white-color);
+    box-shadow: 0 1.5rem 4rem rgba(117, 78, 249, 0.25);
+}
+.fulltime-cta h2 {
+    font-size: 3.6rem;
+    margin-bottom: 1.8rem;
+    font-weight: 700;
+}
+.fulltime-cta p {
+    font-size: 1.9rem;
+    margin-bottom: 3.5rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.fulltime-cta .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 2.4rem;
+    flex-wrap: wrap;
+}
+.fulltime-cta .btn-white {
+    background: var(--white-color);
+    color: var(--main-color);
+    padding: 1.4rem 3.2rem;
+    font-weight: 700;
+}
+.fulltime-cta .btn-white:hover {
+    background: transparent;
+    color: var(--white-color);
+    border-color: var(--white-color);
+    transform: translateY(-3px);
+}
+.fulltime-cta .btn-outline-white {
+    background: transparent;
+    border: 0.2rem solid var(--white-color);
+    color: var(--white-color);
+    padding: 1.4rem 3.2rem;
+    font-weight: 700;
+}
+.fulltime-cta .btn-outline-white:hover {
+    background: var(--white-color);
+    color: var(--main-color);
+    transform: translateY(-3px);
+}
+
+/* ── Marquee separator ── */
+.marquee-sep {
+    margin: 0 2rem;
+    color: var(--white-color);
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .fulltime-cta {
+        margin: 4rem 5% 8rem;
+        padding: 5rem 2rem;
+    }
+    .fulltime-cta h2 {
+        font-size: 2.8rem;
+    }
+    .fulltime-cta p {
+        font-size: 1.6rem;
+    }
+}
