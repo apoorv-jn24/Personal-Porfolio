@@ -6,18 +6,73 @@ const themeToggle = document.querySelector("#darkMode-icon");
 const contactForm = document.querySelector("#contactForm");
 const activitySection = document.querySelector("#activity");
 const scrollToTopBtn = document.querySelector("#scrollToTopBtn");
+const scrollProgress = document.querySelector(".scroll-progress");
+const reducer = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const safeLocalStorageGet = (key) => {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.warn(e);
+    return null;
+  }
+};
+
+const safeLocalStorageSet = (key, value) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+const safeSessionStorageGet = (key) => {
+  try {
+    return sessionStorage.getItem(key);
+  } catch (e) {
+    console.warn(e);
+    return null;
+  }
+};
+
+const safeSessionStorageSet = (key, value) => {
+  try {
+    sessionStorage.setItem(key, value);
+  } catch (e) {
+    console.warn(e);
+  }
+};
+
+if (reducer.matches) {
+  document.documentElement.style.scrollBehavior = "auto";
+  document.querySelectorAll(".reveal-on-scroll").forEach((item) => {
+    item.classList.add("revealed");
+    item.style.opacity = "1";
+    item.style.transform = "none";
+  });
+  document.querySelectorAll(".marquee-track").forEach((track) => {
+    track.style.animation = "none";
+  });
+}
 
 /* ═══════════════════ MOBILE MENU TOGGLE ═══════════════════ */
 if (menuIcon && navbar) {
   menuIcon.addEventListener("click", () => {
     menuIcon.classList.toggle("bx-x");
     navbar.classList.toggle("active");
+    menuIcon.setAttribute(
+      "aria-expanded",
+      navbar.classList.contains("active") ? "true" : "false",
+    );
+    document.body.style.overflow = navbar.classList.contains("active")
+      ? "hidden"
+      : "";
   });
 }
 /* Scroll-spy handled by IntersectionObserver below */
 
 /* ═══════════════════ DARK MODE ═══════════════════ */
-const storedTheme = localStorage.getItem("portfolio-theme");
+const storedTheme = safeLocalStorageGet("portfolio-theme");
 if (storedTheme === "dark") {
   document.body.classList.add("dark");
   themeToggle?.classList.replace("bx-moon", "bx-sun");
@@ -33,7 +88,7 @@ themeToggle?.addEventListener("click", () => {
   const isDark = document.body.classList.contains("dark");
   themeToggle.classList.toggle("bx-sun", isDark);
   themeToggle.classList.toggle("bx-moon", !isDark);
-  localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+  safeLocalStorageSet("portfolio-theme", isDark ? "dark" : "light");
   // Update GitHub stats theme
   const ghStatsImg = document.getElementById("github-stats-img");
   if(ghStatsImg) {
@@ -43,23 +98,33 @@ themeToggle?.addEventListener("click", () => {
 
 /* ═══════════════════ SCROLL REVEAL ═══════════════════ */
 const revealItems = document.querySelectorAll(".reveal-on-scroll");
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("revealed");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 },
-);
+if (!reducer.matches) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 },
+  );
 
-revealItems.forEach((item) => revealObserver.observe(item));
+  revealItems.forEach((item) => revealObserver.observe(item));
+}
 
 /* ═══════════════════ SCROLL-TO-TOP BUTTON ═══════════════════ */
 if (scrollToTopBtn) {
   window.addEventListener("scroll", () => {
+    if (scrollProgress) {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress =
+        scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+      scrollProgress.style.width = `${progress}%`;
+    }
+
     if (window.scrollY > 300) {
       scrollToTopBtn.classList.add("visible");
     } else {
@@ -68,13 +133,13 @@ if (scrollToTopBtn) {
   });
 
   scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: reducer.matches ? "auto" : "smooth" });
   });
 }
 
 /* ═══════════════════ TYPED.JS HERO SUBTITLE ═══════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof Typed !== "undefined" && document.querySelector("#typed-output")) {
+  if (!reducer.matches && typeof Typed !== "undefined" && document.querySelector("#typed-output")) {
     new Typed("#typed-output", {
       strings: [
         "Full-Stack Developer",
@@ -94,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ═══════════════════ DYNAMIC COPYRIGHT YEAR ═══════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
-  const yearEl = document.querySelector("#copyrightYear");
+  const yearEl = document.querySelector(".footer-year");
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
@@ -212,7 +277,7 @@ const generateResponse = (chatElement, userMessage) => {
   }, 500);
 };
 
-const handleChat = () => {
+const sendMessage = () => {
   const userMessage = chatInput?.value.trim();
   if (!userMessage || !chatbox || !chatInput) {
     return;
@@ -233,11 +298,11 @@ const handleChat = () => {
 chatInput?.addEventListener("keydown", (event) => {
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
-    handleChat();
+    sendMessage();
   }
 });
 
-sendChatBtn?.addEventListener("click", handleChat);
+sendChatBtn?.addEventListener("click", sendMessage);
 closeBtn?.addEventListener("click", () =>
   document.body.classList.remove("show-chatbot"),
 );
@@ -306,21 +371,51 @@ const renderGithubEvents = (events) => {
     .join("");
 };
 
+const GITHUB_CACHE_DURATION = 30 * 60 * 1000;
+
 const loadGithubActivity = async (username) => {
   try {
-    const [profileResponse, eventsResponse] = await Promise.all([
-      fetch(`https://api.github.com/users/${username}`),
-      fetch(
-        `https://api.github.com/users/${username}/events/public?per_page=10`,
-      ),
-    ]);
+    const cacheKey = `github-activity-${username}`;
+    const cached = safeSessionStorageGet(cacheKey);
+    let profile;
+    let events;
 
-    if (!profileResponse.ok || !eventsResponse.ok) {
-      throw new Error("GitHub data unavailable");
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        if (Date.now() - parsed.timestamp < GITHUB_CACHE_DURATION) {
+          profile = parsed.profile;
+          events = parsed.events;
+        }
+      } catch (e) {
+        console.warn(e);
+      }
     }
 
-    const profile = await profileResponse.json();
-    const events = await eventsResponse.json();
+    if (!profile || !events) {
+      const [profileResponse, eventsResponse] = await Promise.all([
+        fetch(`https://api.github.com/users/${username}`),
+        fetch(
+          `https://api.github.com/users/${username}/events/public?per_page=10`,
+        ),
+      ]);
+
+      if (!profileResponse.ok || !eventsResponse.ok) {
+        throw new Error("GitHub data unavailable");
+      }
+
+      profile = await profileResponse.json();
+      events = await eventsResponse.json();
+
+      safeSessionStorageSet(
+        cacheKey,
+        JSON.stringify({
+          timestamp: Date.now(),
+          profile,
+          events,
+        }),
+      );
+    }
 
     setText(
       "[data-github-followers]",
@@ -432,6 +527,11 @@ contactForm?.addEventListener("submit", (event) => {
 
 /* ═══════════════════ SECTION VISIBILITY ANIMATIONS ═══════════════════ */
 document.addEventListener("DOMContentLoaded", () => {
+  if (reducer.matches) {
+    document.querySelectorAll("section").forEach((s) => s.classList.add("visible"));
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -455,12 +555,17 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          target.scrollIntoView({
+            behavior: reducer.matches ? "auto" : "smooth",
+            block: "start",
+          });
 
           // Close mobile menu if open
           if (navbar && menuIcon) {
             navbar.classList.remove("active");
             menuIcon.classList.remove("bx-x");
+            menuIcon.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
           }
         }
       }
@@ -471,7 +576,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // === NEW: Active nav IntersectionObserver at threshold 0.4 (Fix #13) ===
 // Replaces the scroll-position approach with a proper IntersectionObserver.
 (function () {
-  const allSections = document.querySelectorAll("section[id]");
+  const allSections = document.querySelectorAll(
+    "#home, #about, #skills, #experience, #portfolio, #certifications, #contact, #achievements, #activity, #education",
+  );
   const allNavLinks = document.querySelectorAll("header nav a[href^='#']");
 
   const activeSectionObserver = new IntersectionObserver(

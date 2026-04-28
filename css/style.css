@@ -1,5 +1,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
+
+:root {
+    --bg-color: #f8f7fd;
+    --surface-color: #ffffff;
+    --surface-soft: #f0ecff;
+    --text-color: #222222;
+    --muted-color: #57536b;
+    --main-color: #754ef9;
+    --main-color-strong: #6038e0;
+    --white-color: #ffffff;
+    --border-color: rgba(117, 78, 249, 0.18);
+    --shadow-color: rgba(20, 16, 40, 0.12);
+    --error-color: #d92d20;
+}
+
+body.dark {
+    --bg-color: #0f1020;
+    --surface-color: #171a2e;
+    --surface-soft: #1f213c;
+    --text-color: #f5f5fb;
+    --muted-color: #c7c6da;
+    --white-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.12);
+    --shadow-color: rgba(0, 0, 0, 0.38);
+    --error-color: #ff6b6b;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,19 +37,39 @@
     font-family: "Poppins", sans-serif;
 }
 
-/* :root variables defined in the refactor block below */
-
 *::selection {
     background: var(--main-color);
     color: var(--bg-color);
 }
 
-/* dark mode variables defined via body.dark below */
-
 html {
     font-size: 62.5%;
     overflow-x: hidden;
     scroll-behavior: smooth;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 10000;
+    padding: 0.8rem 1.2rem;
+    background: var(--main-color);
+    color: var(--white-color);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--main-color);
+    z-index: 10001;
 }
 
 /* body styles consolidated in the refactor block below */
@@ -98,11 +145,13 @@ html {
     font-size: 3.6rem;
     color: var(--text-color);
     display: none;
+    background: transparent;
+    cursor: pointer;
 }
 
 section {
     min-height: auto;
-    padding: 10rem 7%;
+    padding: 8rem 7%;
 }
 
 .home {
@@ -171,104 +220,6 @@ section {
     color: var(--main-color);
     border-color: var(--main-color);
 }
-
-.home .profession-container {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.home .profession-container .profession-box {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 768px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: professionRotate 13s ease-out infinite;
-}
-
-@keyframes professionRotate {
-    0%,
-    20% {
-        transform: rotate(0deg);
-    }
-    25%,
-    45% {
-        transform: rotate(-90deg);
-    }
-    50%,
-    70% {
-        transform: rotate(-180deg);
-    }
-    75%,
-    95% {
-        transform: rotate(-270deg);
-    }
-    100% {
-        transform: rotate(-360deg);
-    }
-}
-
-.home .profession-box .profession {
-    position: absolute;
-    left: 0;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    color: var(--main-color);
-    transform: rotate(calc(360deg / 4 * var(--i)));
-    transform-origin: 384px;
-    background: var(--bg-color);
-    padding: 13px 0;
-}
-
-.home .profession-box .profession:nth-child(1) i {
-    margin-right: 15px;
-}
-
-.home .profession-box .profession:nth-child(2),
-.home .profession-box .profession:nth-child(4) {
-    padding-bottom: 20px;
-}
-
-.home .profession i {
-    font-size: 3.8rem;
-}
-
-.home .profession h3 {
-    font-size: 3.2rem;
-    line-height: 1;
-    font-weight: 600;
-}
-
-.home .profession-box .circle {
-    width: 560px;
-    height: 560px;
-    border: 3px solid var(--main-color);
-    border-radius: 50%;
-    z-index: -1;
-}
-
-.home .profession-container .overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-top: 50vh solid var(--main-color);
-    border-right: 384px solid var(--main-color);
-    border-bottom: 50vh solid var(--main-color);
-    border-left: 384px solid transparent;
-}
-
 .home-img img {
     position: absolute;
     bottom: 0;
@@ -552,27 +503,6 @@ span {
     background: #ffb347;
     color: #18142e;
 }
-
-.leetcode-shell {
-    margin-top: 1.4rem;
-    border-radius: 1.7rem;
-    padding: 1.5rem;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.02)
-    );
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
-}
-
-.leetcode-highlight-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9rem;
-    margin-bottom: 1.2rem;
-}
-
 .leetcode-highlight {
     padding: 1.1rem 1.2rem;
     border-radius: 1.3rem;
@@ -598,12 +528,6 @@ span {
     font-size: 1.6rem;
     color: #fff;
 }
-
-.leetcode-cards {
-    display: grid;
-    gap: 1rem;
-}
-
 .leetcode-card-link {
     display: block;
     max-width: 56rem;
@@ -635,24 +559,6 @@ span {
     display: block;
     border-radius: 1.2rem;
 }
-
-.leetcode-footer {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.6rem;
-    padding: 1.4rem 1.6rem;
-    border-radius: 1.6rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.leetcode-footer p {
-    font-size: 1.35rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.78);
-}
-
 .leetcode-live-dot {
     width: 1rem;
     height: 1rem;
@@ -769,41 +675,6 @@ span {
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     gap: 3rem;
 }
-
-.experience-box {
-    background: var(--bg-color);
-    padding: 3rem 4rem;
-    border-radius: 0.8rem;
-    box-shadow: 0 0.1rem 0.5rem var(--shadow-color);
-    border-left: 0.5rem solid var(--main-color);
-}
-
-.experience-box h3 {
-    font-size: 2.2rem;
-    color: var(--text-color);
-    margin-bottom: 2rem;
-}
-
-.experience-box .skill-item {
-    margin: 2rem 0;
-}
-
-.experience-box .skill-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin-bottom: 0.8rem;
-}
-
-.experience-box .progress-line {
-    width: 100%;
-    height: 1rem;
-    background-color: var(--text-color);
-    opacity: 0.2;
-    border-radius: 0.5rem;
-}
-
 .progress-line span {
     display: block;
     height: 100%;
@@ -1187,9 +1058,6 @@ img {
 /* UI REFINEMENT */
 /* body line-height consolidated in the refactor block below */
 
-section {
-    padding: 11rem 7% 8rem;
-}
 
 .heading {
     font-size: clamp(3.4rem, 4vw, 4.6rem);
@@ -1420,16 +1288,7 @@ section {
     html {
         font-size: 55%;
     }
-
-    .home .profession-container .profession-box {
-        right: -10%;
-    }
-
-    .home .profession-container .overlay {
-        right: -6%;
-    }
-
-    .home-img img {
+.home-img img {
         right: 0;
     }
 }
@@ -1442,16 +1301,7 @@ section {
     section {
         padding: 10rem 3% 6rem;
     }
-
-    .home .profession-container .profession-box {
-        right: -20%;
-    }
-
-    .home .profession-container .overlay {
-        right: -12%;
-    }
-
-    .home-img img {
+.home-img img {
         max-width: 400px;
     }
 
@@ -1477,16 +1327,7 @@ section {
     .home .home-content {
         max-width: 50rem;
     }
-
-    .home .profession-container .profession-box {
-        right: -35%;
-    }
-
-    .home .profession-container .overlay {
-        right: -30%;
-    }
-
-    .home-img img {
+.home-img img {
         display: none;
     }
 
@@ -1586,63 +1427,7 @@ section {
     .hero-actions {
         justify-content: center;
     }
-
-    .home .profession-container {
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .home .profession-container .profession-box {
-        position: fixed;
-        top: 450px;
-        left: 0;
-        width: 100%;
-    }
-
-    .home .profession-box .profession {
-        padding: 0 13px;
-        left: auto;
-        transform-origin: 0;
-    }
-
-    .home .profession-box .profession:nth-child(1) {
-        transform: rotate(-90deg) translate(-120px, -210px);
-    }
-
-    .home .profession-box .profession:nth-child(1) i {
-        margin-right: 0;
-    }
-
-    .home .profession-box .profession:nth-child(2) {
-        transform: rotate(0deg) translate(0, -325px);
-    }
-
-    .home .profession-box .profession:nth-child(3) {
-        transform: rotate(90deg) translate(-115px, -450px);
-    }
-
-    .home .profession-box .profession:nth-child(4) {
-        transform: rotate(180deg) translate(-220px, -325px);
-    }
-
-    .home .profession-box .circle {
-        position: fixed;
-        width: 670px;
-        height: 670px;
-        z-index: -1;
-    }
-
-    .home .profession-container .overlay {
-        position: fixed;
-        top: 70rem;
-        left: 50%;
-        right: 0;
-        transform: rotate(90deg) translate(-50%, 50%) scaleY(3);
-        border-width: 23.9rem;
-    }
-
-    .portfolio .portfolio-container {
+.portfolio .portfolio-container {
         grid-template-columns: 1fr;
     }
 
@@ -1715,12 +1500,7 @@ section {
     .stats-grid {
         grid-template-columns: 1fr;
     }
-
-    .leetcode-highlight-row {
-        grid-template-columns: 1fr;
-    }
-
-    .contact form {
+.contact form {
         padding: 1.8rem;
     }
 }
@@ -1733,28 +1513,7 @@ section {
     #darkMode-icon {
         right: 6rem;
     }
-
-    .home .profession-box .profession:nth-child(1) {
-        transform: rotate(-90deg) translate(-110px, -220px);
-    }
-
-    .home .profession-box .profession:nth-child(2) {
-        transform: rotate(0deg) translate(5px, -325px);
-    }
-
-    .home .profession-box .profession:nth-child(3) {
-        transform: rotate(90deg) translate(-105px, -440px);
-    }
-
-    .home .profession-box .profession:nth-child(4) {
-        transform: rotate(180deg) translate(-210px, -325px);
-    }
-
-    .home .profession-container .overlay {
-        top: 80rem;
-    }
-
-    .about-img img {
+.about-img img {
         width: 90vw;
     }
 
@@ -1813,7 +1572,7 @@ body.show-chatbot .chatbot-toggler .bx-x {
     position: fixed;
     bottom: 90px;
     right: 25px;
-    width: 320px;
+    width: min(320px, 92vw);
     background: #fff;
     padding: 0;
     border-radius: 15px;
@@ -1912,32 +1671,6 @@ body.show-chatbot .chatbot {
 }
 
 /* ===== Portfolio Refactor Overrides ===== */
-:root {
-    --bg-color: #f8f7fd;
-    --surface-color: #ffffff;
-    --surface-soft: #f0ecff;
-    --text-color: #222222;
-    --muted-color: #57536b;
-    --main-color: #754ef9;
-    --main-color-strong: #6038e0;
-    --white-color: #ffffff;
-    --border-color: rgba(117, 78, 249, 0.18);
-    --shadow-color: rgba(20, 16, 40, 0.12);
-    --error-color: #d92d20;
-}
-
-body.dark {
-    --bg-color: #0f1020;
-    --surface-color: #171a2e;
-    --surface-soft: #1f213c;
-    --text-color: #f5f5fb;
-    --muted-color: #c7c6da;
-    --white-color: #ffffff;
-    --border-color: rgba(255, 255, 255, 0.12);
-    --shadow-color: rgba(0, 0, 0, 0.38);
-    --error-color: #ff6b6b;
-}
-
 html {
     scroll-padding-top: 8rem;
 }
@@ -1948,9 +1681,6 @@ body {
     line-height: 1.65;
 }
 
-section {
-    padding: 8rem 7%;
-}
 
 .reveal-on-scroll {
     opacity: 0;
@@ -2424,7 +2154,7 @@ body.dark .header.sticky {
     background: rgba(117, 78, 249, 0.16);
 }
 
-.project-actions {
+.project-btns {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -2432,7 +2162,7 @@ body.dark .header.sticky {
     padding-top: 0.6rem;
 }
 
-.project-actions .btn {
+.project-btns .btn {
     min-width: 12rem;
     text-align: center;
     transition:
@@ -2440,7 +2170,7 @@ body.dark .header.sticky {
         box-shadow 0.25s ease;
 }
 
-.project-actions .btn:hover {
+.project-btns .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 1rem 2rem rgba(117, 78, 249, 0.18);
 }
@@ -2614,7 +2344,7 @@ body.dark .header.sticky {
     .home-content .social-media,
     .hero-actions,
     .contact-socials,
-    .project-actions {
+    .project-btns {
         justify-content: center;
     }
 
@@ -2659,7 +2389,7 @@ body.dark .header.sticky {
     }
 
     .hero-actions .btn,
-    .project-actions .btn {
+    .project-btns .btn {
         width: 100%;
     }
 
@@ -3026,6 +2756,8 @@ section.visible {
     border-radius: 16px;
     border: 1px solid #ede9fe;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease;
@@ -3050,6 +2782,9 @@ section.visible {
 }
 .project-info {
     padding: 16px 20px 22px;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 .project-name {
     font-size: 17px;
@@ -3067,10 +2802,17 @@ section.visible {
     color: #555555;
     line-height: 1.6;
     margin-bottom: 12px;
+    min-height: 12.8em;
 }
+@media (max-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .projects-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -3216,7 +2958,7 @@ body.dark .status-dot {
     font-size: 2.2rem;
     font-weight: 500;
     color: var(--text-color);
-    min-height: 3.6rem;
+    min-height: 3rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -4059,7 +3801,7 @@ body.dark .formspree-notice code {
 }
 
 /* ============================================================
-   === NEW: Mobile & Tablet Fixes ===
+   === Mobile & Tablet Fixes ===
    ============================================================ */
 @media (max-width: 991px) {
     /* 1. Hero profile photo visible & reduced size */
@@ -4083,29 +3825,39 @@ body.dark .formspree-notice code {
 
     /* 2. Chatbot window responsive */
     .chatbot {
-        max-width: 90vw;
+        width: min(320px, 92vw);
+        max-width: 92vw;
     }
 
     /* 3. Offset scroll-to-top button to prevent overlap with chatbot toggle */
     #scrollToTopBtn {
         bottom: 95px !important;
     }
-
-    /* 4. Profession container absolute instead of fixed */
-    .profession-container {
-        position: absolute !important;
-    }
-
-    /* 6. Cap about-img size on tablet */
+    /* 6. Cap about-img size on tablet/mobile */
     .about-img img {
-        max-width: 50vw !important;
+        max-width: 280px !important;
     }
 }
 
-@media (max-width: 365px) {
-    /* 5. Fix hero-stats 3 column overflow */
-    .hero-stats {
+@media (max-width: 480px) {
+    .project-btns {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .project-btns .btn,
+    .project-btns .btn-demo,
+    .project-btns .btn-github {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    /* 5. Fix hero-stats overflow */
+    .hero-stats {
+        flex-wrap: wrap;
         gap: 1.5rem;
     }
 }
