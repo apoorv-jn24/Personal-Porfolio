@@ -80,7 +80,7 @@ python -m http.server 8000
 | Skills | Frontend, Backend, Tools — with proficiency indicators |
 | Activity | Live GitHub stats + recent public event feed |
 | Experience | Internship timeline (2× Python Developer) |
-| Education | B.Tech Computer Science, KIET Group |
+| Education | B.Tech Computer Science, COER University |
 | Projects | 7 projects with stack badges, problem/solution/impact format |
 | Contact | Formspree form + WhatsApp + copy-email |
 
