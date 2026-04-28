@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
    script.js — Apoorv Jain Portfolio
-   Clean rewrite: all dead code removed, all bugs fixed
    ═══════════════════════════════════════════════════════════════ */
 
 /* ─── 1. CORE SELECTORS ─────────────────────────────────────── */
@@ -138,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.4 }
+    { rootMargin: "-100px 0px -40% 0px", threshold: 0 }
   );
 
   sections.forEach((sec) => activeObserver.observe(sec));
@@ -176,7 +175,7 @@ if (scrollToTopBtn) {
   window.addEventListener("scroll", () => {
     /* Progress bar */
     if (scrollProgress) {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
       scrollProgress.style.width = `${pct}%`;
     }
