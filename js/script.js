@@ -1,103 +1,87 @@
-/* ═══════════════════ SELECTORS ═══════════════════ */
-const menuIcon = document.querySelector("#menu-icon");
-const navbar = document.querySelector(".navbar");
+/* ═══════════════════════════════════════════════════════════════
+   script.js — Apoorv Jain Portfolio
+   Clean rewrite: all dead code removed, all bugs fixed
+   ═══════════════════════════════════════════════════════════════ */
 
-const themeToggle = document.querySelector("#darkMode-icon");
-const contactForm = document.querySelector("#contactForm");
+/* ─── 1. CORE SELECTORS ─────────────────────────────────────── */
+const menuIcon       = document.querySelector("#menu-icon");
+const navbar         = document.querySelector(".navbar");
+const themeToggle    = document.querySelector("#darkMode-icon");
+const contactForm    = document.querySelector("#contactForm");
 const activitySection = document.querySelector("#activity");
 const scrollToTopBtn = document.querySelector("#scrollToTopBtn");
 const scrollProgress = document.querySelector(".scroll-progress");
+
+/* Reduced-motion preference — used throughout */
 const reducer = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+/* ─── 2. SAFE STORAGE HELPERS ───────────────────────────────── */
 const safeLocalStorageGet = (key) => {
-  try {
-    return localStorage.getItem(key);
-  } catch (e) {
-    console.warn(e);
-    return null;
-  }
+  try { return localStorage.getItem(key); } catch { return null; }
 };
-
-const safeLocalStorageSet = (key, value) => {
-  try {
-    localStorage.setItem(key, value);
-  } catch (e) {
-    console.warn(e);
-  }
+const safeLocalStorageSet = (key, val) => {
+  try { localStorage.setItem(key, val); } catch { /* quota/private mode */ }
 };
-
 const safeSessionStorageGet = (key) => {
-  try {
-    return sessionStorage.getItem(key);
-  } catch (e) {
-    console.warn(e);
-    return null;
-  }
+  try { return sessionStorage.getItem(key); } catch { return null; }
+};
+const safeSessionStorageSet = (key, val) => {
+  try { sessionStorage.setItem(key, val); } catch { /* quota/private mode */ }
 };
 
-const safeSessionStorageSet = (key, value) => {
-  try {
-    sessionStorage.setItem(key, value);
-  } catch (e) {
-    console.warn(e);
-  }
-};
-
+/* ─── 3. REDUCED-MOTION: SKIP ANIMATIONS ───────────────────── */
 if (reducer.matches) {
   document.documentElement.style.scrollBehavior = "auto";
-  document.querySelectorAll(".reveal-on-scroll").forEach((item) => {
-    item.classList.add("revealed");
-    item.style.opacity = "1";
-    item.style.transform = "none";
+
+  /* Instantly reveal all scroll-animated sections */
+  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+    el.classList.add("revealed");
   });
-  document.querySelectorAll(".marquee-track").forEach((track) => {
-    track.style.animation = "none";
+  document.querySelectorAll("section").forEach((s) => {
+    s.classList.add("visible");
+  });
+
+  /* Stop the marquee */
+  document.querySelectorAll(".marquee-track").forEach((t) => {
+    t.style.animation = "none";
   });
 }
 
-/* ═══════════════════ MOBILE MENU TOGGLE ═══════════════════ */
+/* ─── 4. MOBILE MENU TOGGLE ─────────────────────────────────── */
 if (menuIcon && navbar) {
   menuIcon.addEventListener("click", () => {
-    menuIcon.classList.toggle("bx-x");
-    navbar.classList.toggle("active");
-    menuIcon.setAttribute(
-      "aria-expanded",
-      navbar.classList.contains("active") ? "true" : "false",
-    );
-    document.body.style.overflow = navbar.classList.contains("active")
-      ? "hidden"
-      : "";
+    const isOpen = navbar.classList.toggle("active");
+    menuIcon.classList.toggle("bx-x", isOpen);
+    menuIcon.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    document.body.style.overflow = isOpen ? "hidden" : "";
   });
 }
-/* Scroll-spy handled by IntersectionObserver below */
 
-/* ═══════════════════ DARK MODE ═══════════════════ */
-const storedTheme = safeLocalStorageGet("portfolio-theme");
-if (storedTheme === "dark") {
+/* ─── 5. DARK MODE ──────────────────────────────────────────── */
+/* Restore saved preference on load */
+if (safeLocalStorageGet("portfolio-theme") === "dark") {
   document.body.classList.add("dark");
   themeToggle?.classList.replace("bx-moon", "bx-sun");
-  // Set initial dark theme for github stats
-  const ghStatsImg = document.getElementById("github-stats-img");
-  if(ghStatsImg) {
-      ghStatsImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true`;
+  const ghImg = document.getElementById("github-stats-img");
+  if (ghImg) {
+    ghImg.src = "https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true";
   }
 }
 
 themeToggle?.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  const isDark = document.body.classList.contains("dark");
+  const isDark = document.body.classList.toggle("dark");
   themeToggle.classList.toggle("bx-sun", isDark);
   themeToggle.classList.toggle("bx-moon", !isDark);
   safeLocalStorageSet("portfolio-theme", isDark ? "dark" : "light");
-  // Update GitHub stats theme
-  const ghStatsImg = document.getElementById("github-stats-img");
-  if(ghStatsImg) {
-      ghStatsImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=${isDark ? 'dark' : 'default'}&hide_border=true&count_private=true`;
+
+  /* Swap GitHub stats card theme */
+  const ghImg = document.getElementById("github-stats-img");
+  if (ghImg) {
+    ghImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=${isDark ? "dark" : "default"}&hide_border=true&count_private=true`;
   }
 });
 
-/* ═══════════════════ SCROLL REVEAL ═══════════════════ */
-const revealItems = document.querySelectorAll(".reveal-on-scroll");
+/* ─── 6. SCROLL REVEAL (.reveal-on-scroll) ──────────────────── */
 if (!reducer.matches) {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -108,28 +92,97 @@ if (!reducer.matches) {
         }
       });
     },
-    { threshold: 0.15 },
+    { threshold: 0.15 }
   );
-
-  revealItems.forEach((item) => revealObserver.observe(item));
+  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+    revealObserver.observe(el);
+  });
 }
 
-/* ═══════════════════ SCROLL-TO-TOP BUTTON ═══════════════════ */
+/* ─── 7. SECTION VISIBILITY ANIMATIONS (.visible) ───────────── */
+/* Separate observer used by the CSS `section { opacity: 0 }` rule */
+document.addEventListener("DOMContentLoaded", () => {
+  if (reducer.matches) return; /* already handled in §3 */
+
+  const visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          visibilityObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll("section").forEach((s) => {
+    visibilityObserver.observe(s);
+  });
+});
+
+/* ─── 8. ACTIVE NAV HIGHLIGHT (IntersectionObserver) ────────── */
+(function () {
+  const sections = document.querySelectorAll(
+    "#home, #about, #skills, #activity, #experience, #education, #portfolio, #contact"
+  );
+  const navLinks = document.querySelectorAll("header nav a[href^='#']");
+
+  const activeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          navLinks.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+          });
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  sections.forEach((sec) => activeObserver.observe(sec));
+})();
+
+/* ─── 9. SMOOTH SCROLL (navbar + footer links) ──────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".footer-nav a, .navbar a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href");
+      if (!href?.startsWith("#")) return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: reducer.matches ? "auto" : "smooth",
+        block: "start",
+      });
+
+      /* Close mobile menu if open */
+      if (navbar?.classList.contains("active")) {
+        navbar.classList.remove("active");
+        menuIcon?.classList.remove("bx-x");
+        menuIcon?.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+    });
+  });
+});
+
+/* ─── 10. SCROLL PROGRESS BAR + SCROLL-TO-TOP BUTTON ────────── */
 if (scrollToTopBtn) {
   window.addEventListener("scroll", () => {
+    /* Progress bar */
     if (scrollProgress) {
-      const scrollableHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress =
-        scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
-      scrollProgress.style.width = `${progress}%`;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      scrollProgress.style.width = `${pct}%`;
     }
 
-    if (window.scrollY > 300) {
-      scrollToTopBtn.classList.add("visible");
-    } else {
-      scrollToTopBtn.classList.remove("visible");
-    }
+    /* Show/hide button */
+    scrollToTopBtn.classList.toggle("visible", window.scrollY > 300);
   });
 
   scrollToTopBtn.addEventListener("click", () => {
@@ -137,568 +190,292 @@ if (scrollToTopBtn) {
   });
 }
 
-/* ═══════════════════ TYPED.JS HERO SUBTITLE ═══════════════════ */
+/* ─── 11. TYPED.JS HERO SUBTITLE ────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
-  if (!reducer.matches && typeof Typed !== "undefined" && document.querySelector("#typed-output")) {
-    new Typed("#typed-output", {
-      strings: [
-        "Full-Stack Developer",
-        "Problem Solver",
-        "Java & React Developer",
-        "Open Source Contributor",
-      ],
-      typeSpeed: 50,
-      backSpeed: 30,
-      backDelay: 2000,
-      loop: true,
-      showCursor: true,
-      cursorChar: "|",
-    });
-  }
+  if (reducer.matches) return;
+  if (typeof Typed === "undefined") return;
+  const typedEl = document.querySelector("#typed-output");
+  if (!typedEl) return;
+
+  new Typed("#typed-output", {
+    strings: [
+      "Full-Stack Developer",
+      "Problem Solver",
+      "Java & React Developer",
+      "Open Source Contributor",
+    ],
+    typeSpeed: 50,
+    backSpeed: 30,
+    backDelay: 2000,
+    loop: true,
+    showCursor: true,
+    cursorChar: "|",
+  });
 });
 
-/* ═══════════════════ DYNAMIC COPYRIGHT YEAR ═══════════════════ */
+/* ─── 12. DYNAMIC COPYRIGHT YEAR ────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.querySelector(".footer-year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
-/* ═══════════════════ COPY-TO-CLIPBOARD ═══════════════════ */
+/* ─── 13. COPY EMAIL TO CLIPBOARD ───────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".copy-email-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const email = btn.dataset.email;
       if (!email) return;
 
-      navigator.clipboard
-        .writeText(email)
-        .then(() => {
-          btn.classList.add("copied");
-          const tooltip = btn.querySelector(".copy-tooltip");
-          if (tooltip) {
-            tooltip.style.opacity = "1";
-            tooltip.style.transform = "translateY(-4px)";
-          }
+      const finish = (success) => {
+        if (!success) return;
+        btn.classList.add("copied");
+        const tooltip = btn.querySelector(".copy-tooltip");
+        const icon    = btn.querySelector("i");
 
-          // Change icon temporarily
-          const icon = btn.querySelector("i");
-          if (icon) {
-            icon.classList.replace("bx-copy", "bx-check");
-          }
+        if (tooltip) { tooltip.style.opacity = "1"; tooltip.style.transform = "translateY(-4px)"; }
+        if (icon)    icon.classList.replace("bx-copy", "bx-check");
 
-          setTimeout(() => {
-            btn.classList.remove("copied");
-            if (tooltip) {
-              tooltip.style.opacity = "0";
-              tooltip.style.transform = "translateY(0)";
-            }
-            if (icon) {
-              icon.classList.replace("bx-check", "bx-copy");
-            }
-          }, 2000);
-        })
-        .catch(() => {
-          // Fallback for older browsers
-          const textArea = document.createElement("textarea");
-          textArea.value = email;
-          textArea.style.position = "fixed";
-          textArea.style.opacity = "0";
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textArea);
-        });
+        setTimeout(() => {
+          btn.classList.remove("copied");
+          if (tooltip) { tooltip.style.opacity = "0"; tooltip.style.transform = "translateY(0)"; }
+          if (icon)    icon.classList.replace("bx-check", "bx-copy");
+        }, 2000);
+      };
+
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(email).then(() => finish(true)).catch(() => fallbackCopy(email, finish));
+      } else {
+        fallbackCopy(email, finish);
+      }
     });
   });
-});
 
-/* ═══════════════════ CHATBOT ═══════════════════ */
-const chatbotToggler = document.querySelector(".chatbot-toggler");
-const closeBtn = document.querySelector(".close-btn");
-const chatbox = document.querySelector(".chatbox");
-const chatInput = document.querySelector(".chat-input textarea");
-const sendChatBtn = document.querySelector("#send-btn");
-
-const createChatLi = (message, className) => {
-  const chatLi = document.createElement("li");
-  chatLi.classList.add("chat", className);
-  chatLi.innerHTML =
-    className === "outgoing" ? "<p></p>" : '<i class="bx bx-bot"></i><p></p>';
-  chatLi.querySelector("p").textContent = message;
-  return chatLi;
-};
-
-const generateResponse = (chatElement, userMessage) => {
-  const messageElement = chatElement.querySelector("p");
-  const msg = userMessage.toLowerCase();
-  let response =
-    "I'm not sure about that! But you can easily reach out to Apoorv directly via the contact form below.";
-
-  if (msg.includes("hi") || msg.includes("hello") || msg.includes("hey")) {
-    response =
-      "Hello! I'm Apoorv's virtual assistant. Ask me about skills, education, experience, or projects.";
-  } else if (
-    msg.includes("skill") ||
-    msg.includes("tech") ||
-    msg.includes("stack")
-  ) {
-    response =
-      "Apoorv works with Java, Python, React, Node.js, Spring Boot, and modern DevOps tools like Git, Docker, and Maven.";
-  } else if (
-    msg.includes("education") ||
-    msg.includes("college") ||
-    msg.includes("degree")
-  ) {
-    response =
-      "He is pursuing a B.Tech in Computer Science at Coer University (2022–2026) with a CGPA of 8.72/10.";
-  } else if (msg.includes("project") || msg.includes("build")) {
-    response =
-      "He has built 6+ projects including a full-stack trading marketplace, e-commerce clones, a budget tracker, and this interactive portfolio.";
-  } else if (msg.includes("experience") || msg.includes("intern")) {
-    response =
-      "He completed two internships at CodSoft — as a Java Developer (2024) and Python Developer (2023), building desktop apps and Python utilities.";
-  } else if (
-    msg.includes("contact") ||
-    msg.includes("email") ||
-    msg.includes("hire")
-  ) {
-    response =
-      "You can email him at apoorvjainji@gmail.com or use the contact form on this page. He's open to opportunities!";
-  } else if (msg.includes("leetcode") || msg.includes("dsa")) {
-    response =
-      "Apoorv has solved 200+ LeetCode problems with a 200-day streak and a Gold badge. His focus areas are Arrays, Trees, and Dynamic Programming.";
-  }
-
-  setTimeout(() => {
-    messageElement.textContent = response;
-    chatbox?.scrollTo(0, chatbox.scrollHeight);
-  }, 500);
-};
-
-const sendMessage = () => {
-  const userMessage = chatInput?.value.trim();
-  if (!userMessage || !chatbox || !chatInput) {
-    return;
-  }
-
-  chatInput.value = "";
-  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-  chatbox.scrollTo(0, chatbox.scrollHeight);
-
-  setTimeout(() => {
-    const incomingChatLi = createChatLi("Thinking...", "incoming");
-    chatbox.appendChild(incomingChatLi);
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-    generateResponse(incomingChatLi, userMessage);
-  }, 500);
-};
-
-chatInput?.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    sendMessage();
+  function fallbackCopy(text, cb) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;opacity:0;pointer-events:none;";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    cb(ok);
   }
 });
 
-sendChatBtn?.addEventListener("click", sendMessage);
-closeBtn?.addEventListener("click", () =>
-  document.body.classList.remove("show-chatbot"),
-);
-chatbotToggler?.addEventListener("click", () =>
-  document.body.classList.toggle("show-chatbot"),
-);
+/* ─── 14. GITHUB API + CACHING ──────────────────────────────── */
+const GITHUB_CACHE_MS = 30 * 60 * 1000; /* 30 minutes */
 
-/* ═══════════════════ GITHUB API ═══════════════════ */
 const setText = (selector, value, scope = document) => {
-  const element = scope.querySelector(selector);
-  if (element) {
-    element.textContent = value;
-  }
+  const el = scope.querySelector(selector);
+  if (el) el.textContent = value;
 };
 
-const formatNumber = (value) => {
-  const number = Number(value);
-  return Number.isFinite(number) ? number.toLocaleString() : "--";
+const formatNumber = (val) => {
+  const n = Number(val);
+  return Number.isFinite(n) ? n.toLocaleString() : "--";
 };
 
-const formatRelativeDate = (dateString) => {
-  if (!dateString) {
-    return "Recently";
-  }
-
-  const date = new Date(dateString);
-  const diffInMs = Date.now() - date.getTime();
-  const diffInDays = Math.max(1, Math.round(diffInMs / (1000 * 60 * 60 * 24)));
-
-  return diffInDays === 1 ? "1 day ago" : `${diffInDays} days ago`;
+const formatRelativeDate = (dateStr) => {
+  if (!dateStr) return "Recently";
+  const days = Math.max(1, Math.round((Date.now() - new Date(dateStr).getTime()) / 86400000));
+  return days === 1 ? "1 day ago" : `${days} days ago`;
 };
 
 const renderGithubEvents = (events) => {
   const feed = activitySection?.querySelector("[data-github-events]");
-  if (!feed) {
-    return;
-  }
+  if (!feed) return;
 
-  const eventItems = events
-    .filter((event) =>
-      ["PushEvent", "CreateEvent", "PullRequestEvent"].includes(event.type),
-    )
+  const items = events
+    .filter((e) => ["PushEvent", "CreateEvent", "PullRequestEvent"].includes(e.type))
     .slice(0, 4);
 
-  if (!eventItems.length) {
-    feed.innerHTML =
-      '<li class="feed-item muted">Public event data is not available right now.</li>';
+  if (!items.length) {
+    feed.innerHTML = '<li class="feed-item muted">No recent public activity found.</li>';
     return;
   }
 
-  feed.innerHTML = eventItems
-    .map((event) => {
-      let action = "Updated activity";
-
-      if (event.type === "PushEvent") {
-        const commits = event.payload?.commits?.length || 0;
-        action = `Pushed ${commits} commit${commits === 1 ? "" : "s"} to ${event.repo.name}`;
-      } else if (event.type === "CreateEvent") {
-        action = `Created ${event.payload?.ref_type || "item"} in ${event.repo.name}`;
-      } else if (event.type === "PullRequestEvent") {
-        action = `${event.payload?.action || "Updated"} pull request in ${event.repo.name}`;
-      }
-
-      return `<li class="feed-item"><span>${action}</span><strong>${formatRelativeDate(event.created_at)}</strong></li>`;
-    })
-    .join("");
+  feed.innerHTML = items.map((e) => {
+    let action = "Updated activity";
+    if (e.type === "PushEvent") {
+      const c = e.payload?.commits?.length || 0;
+      action = `Pushed ${c} commit${c === 1 ? "" : "s"} to ${e.repo.name}`;
+    } else if (e.type === "CreateEvent") {
+      action = `Created ${e.payload?.ref_type || "item"} in ${e.repo.name}`;
+    } else if (e.type === "PullRequestEvent") {
+      action = `${e.payload?.action || "Updated"} pull request in ${e.repo.name}`;
+    }
+    return `<li class="feed-item"><span>${action}</span><strong>${formatRelativeDate(e.created_at)}</strong></li>`;
+  }).join("");
 };
 
-const GITHUB_CACHE_DURATION = 30 * 60 * 1000;
-
 const loadGithubActivity = async (username) => {
-  try {
-    const cacheKey = `github-activity-${username}`;
-    const cached = safeSessionStorageGet(cacheKey);
-    let profile;
-    let events;
+  const cacheKey = `github-activity-${username}`;
+  let profile, events;
 
+  /* Try cache first */
+  try {
+    const cached = safeSessionStorageGet(cacheKey);
     if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        if (Date.now() - parsed.timestamp < GITHUB_CACHE_DURATION) {
-          profile = parsed.profile;
-          events = parsed.events;
-        }
-      } catch (e) {
-        console.warn(e);
+      const parsed = JSON.parse(cached);
+      if (Date.now() - parsed.timestamp < GITHUB_CACHE_MS) {
+        profile = parsed.profile;
+        events  = parsed.events;
       }
     }
+  } catch { /* corrupt cache — ignore */ }
 
-    if (!profile || !events) {
-      const [profileResponse, eventsResponse] = await Promise.all([
+  /* Fetch if cache miss */
+  if (!profile || !events) {
+    try {
+      const [pRes, eRes] = await Promise.all([
         fetch(`https://api.github.com/users/${username}`),
-        fetch(
-          `https://api.github.com/users/${username}/events/public?per_page=10`,
-        ),
+        fetch(`https://api.github.com/users/${username}/events/public?per_page=10`),
       ]);
 
-      if (!profileResponse.ok || !eventsResponse.ok) {
-        throw new Error("GitHub data unavailable");
-      }
+      if (!pRes.ok || !eRes.ok) throw new Error("GitHub API error");
 
-      profile = await profileResponse.json();
-      events = await eventsResponse.json();
+      profile = await pRes.json();
+      events  = await eRes.json();
 
-      safeSessionStorageSet(
-        cacheKey,
-        JSON.stringify({
-          timestamp: Date.now(),
-          profile,
-          events,
-        }),
-      );
-    }
-
-    setText(
-      "[data-github-followers]",
-      formatNumber(profile.followers),
-      activitySection,
-    );
-    setText(
-      "[data-github-repos]",
-      formatNumber(profile.public_repos),
-      activitySection,
-    );
-    setText(
-      "[data-github-following]",
-      formatNumber(profile.following),
-      activitySection,
-    );
-    setText(
-      "[data-github-pushes]",
-      formatNumber(events.filter((event) => event.type === "PushEvent").length),
-      activitySection,
-    );
-    setText(
-      "[data-github-updated]",
-      `Updated ${formatRelativeDate(events[0]?.created_at)}`,
-      activitySection,
-    );
-
-    renderGithubEvents(events);
-  } catch (error) {
-    setText("[data-github-followers]", "Live", activitySection);
-    setText("[data-github-repos]", "Live", activitySection);
-    setText("[data-github-following]", "Live", activitySection);
-    setText("[data-github-pushes]", "N/A", activitySection);
-    setText("[data-github-updated]", "GitHub API unavailable", activitySection);
-
-    const feed = activitySection?.querySelector("[data-github-events]");
-    if (feed) {
-      feed.innerHTML =
-        '<li class="feed-item muted">GitHub activity is temporarily unavailable.</li>';
+      safeSessionStorageSet(cacheKey, JSON.stringify({ timestamp: Date.now(), profile, events }));
+    } catch {
+      /* Show graceful fallback */
+      setText("[data-github-followers]", "--", activitySection);
+      setText("[data-github-repos]",    "--", activitySection);
+      setText("[data-github-following]","--", activitySection);
+      setText("[data-github-pushes]",   "--", activitySection);
+      setText("[data-github-updated]",  "GitHub API unavailable", activitySection);
+      const feed = activitySection?.querySelector("[data-github-events]");
+      if (feed) feed.innerHTML = '<li class="feed-item muted">GitHub activity is temporarily unavailable.</li>';
+      return;
     }
   }
+
+  /* Populate stats */
+  setText("[data-github-followers]", formatNumber(profile.followers),   activitySection);
+  setText("[data-github-repos]",     formatNumber(profile.public_repos), activitySection);
+  setText("[data-github-following]", formatNumber(profile.following),   activitySection);
+  setText(
+    "[data-github-pushes]",
+    formatNumber(events.filter((e) => e.type === "PushEvent").length),
+    activitySection
+  );
+  setText(
+    "[data-github-updated]",
+    `Updated ${formatRelativeDate(events[0]?.created_at)}`,
+    activitySection
+  );
+  renderGithubEvents(events);
 };
 
 if (activitySection?.dataset.githubUsername) {
   loadGithubActivity(activitySection.dataset.githubUsername);
 }
 
-/* ═══════════════════ CONTACT FORM VALIDATION ═══════════════════ */
-const setFieldError = (field, message) => {
-  const wrapper = field.closest(".cf-field");
-  wrapper?.classList.add("has-error");
-  const error = wrapper?.querySelector(".error-message");
-  if (error) {
-    error.textContent = message;
-  }
+/* ─── 15. CONTACT FORM VALIDATION HELPERS ───────────────────── */
+const setFieldError = (field, msg) => {
+  const wrap = field.closest(".cf-field");
+  wrap?.classList.add("has-error");
+  const err = wrap?.querySelector(".error-message");
+  if (err) err.textContent = msg;
 };
 
 const clearFieldError = (field) => {
-  const wrapper = field.closest(".cf-field");
-  wrapper?.classList.remove("has-error");
-  const error = wrapper?.querySelector(".error-message");
-  if (error) {
-    error.textContent = "";
-  }
+  const wrap = field.closest(".cf-field");
+  wrap?.classList.remove("has-error");
+  const err = wrap?.querySelector(".error-message");
+  if (err) err.textContent = "";
 };
 
 const validateField = (field) => {
-  const value = field.value.trim();
+  const val = field.value.trim();
 
-  if (field.hasAttribute("required") && !value) {
+  if (field.hasAttribute("required") && !val) {
     setFieldError(field, "This field is required.");
     return false;
   }
-
-  if (field.type === "email" && value) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(value)) {
-      setFieldError(field, "Please enter a valid email address.");
-      return false;
-    }
+  if (field.type === "email" && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+    setFieldError(field, "Please enter a valid email address.");
+    return false;
   }
 
   clearFieldError(field);
   return true;
 };
 
+/* Validate on each keystroke */
 contactForm?.querySelectorAll("input, textarea").forEach((field) => {
   field.addEventListener("input", () => validateField(field));
 });
 
-contactForm?.addEventListener("submit", (event) => {
-  const fields = contactForm.querySelectorAll("input, textarea");
-  let isValid = true;
-
-  fields.forEach((field) => {
-    if (field.type === "hidden" || field.type === "submit") {
-      return;
-    }
-
-    if (!validateField(field)) {
-      isValid = false;
-    }
-  });
-
-  if (!isValid) {
-    event.preventDefault();
-  }
-});
-
-/* ═══════════════════ SECTION VISIBILITY ANIMATIONS ═══════════════════ */
-document.addEventListener("DOMContentLoaded", () => {
-  if (reducer.matches) {
-    document.querySelectorAll("section").forEach((s) => s.classList.add("visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 },
-  );
-  document.querySelectorAll("section").forEach((s) => observer.observe(s));
-});
-
-/* ═══════════════════ SMOOTH SCROLL FOR FOOTER LINKS ═══════════════════ */
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".footer-nav a, .navbar a").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const href = link.getAttribute("href");
-      if (href && href.startsWith("#")) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: reducer.matches ? "auto" : "smooth",
-            block: "start",
-          });
-
-          // Close mobile menu if open
-          if (navbar && menuIcon) {
-            navbar.classList.remove("active");
-            menuIcon.classList.remove("bx-x");
-            menuIcon.setAttribute("aria-expanded", "false");
-            document.body.style.overflow = "";
-          }
-        }
-      }
-    });
-  });
-});
-
-// === NEW: Active nav IntersectionObserver at threshold 0.4 (Fix #13) ===
-// Replaces the scroll-position approach with a proper IntersectionObserver.
+/* ─── 16. CONTACT FORM — FORMSPREE AJAX SUBMIT ──────────────── */
 (function () {
-  const allSections = document.querySelectorAll(
-    "#home, #about, #skills, #experience, #portfolio, #certifications, #contact, #achievements, #activity, #education",
-  );
-  const allNavLinks = document.querySelectorAll("header nav a[href^='#']");
-
-  const activeSectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
-          allNavLinks.forEach((link) => {
-            link.classList.remove("active");
-            if (link.getAttribute("href") === "#" + id) {
-              link.classList.add("active");
-            }
-          });
-        }
-      });
-    },
-    { threshold: 0.4 },
-  );
-
-  allSections.forEach((sec) => activeSectionObserver.observe(sec));
-})();
-
-// === Contact form — Formspree AJAX submit with spinner + inline error messages ===
-(function () {
-  var form = document.querySelector("#contactForm");
-  var submitBtn = document.querySelector("#cfSubmitBtn");
-  var successMsg = document.querySelector("#formSuccess");
-  var errorMsg = document.querySelector("#formError");
-  var notice = document.querySelector("#formspreeNotice");
+  const form       = document.querySelector("#contactForm");
+  const submitBtn  = document.querySelector("#cfSubmitBtn");
+  const successMsg = document.querySelector("#formSuccess");
+  const errorMsg   = document.querySelector("#formError");
+  const notice     = document.querySelector("#formspreeNotice");
 
   if (!form) return;
 
-  // ── Show setup notice if Formspree ID is still a placeholder ──
-  var action = form.getAttribute("action") || "";
+  /* Warn if Formspree ID is still a placeholder */
+  const action = form.getAttribute("action") || "";
   if (action.includes("YOUR_FORM_ID") || action.trim() === "") {
     if (notice) notice.style.display = "block";
   }
 
-  // ── Blur-time validation ──
-  form
-    .querySelectorAll("input:not([type='hidden']), textarea")
-    .forEach(function (field) {
-      field.addEventListener("blur", function () {
-        validateField(field);
-      });
-    });
+  /* Blur-time validation */
+  form.querySelectorAll("input:not([type='hidden']), textarea").forEach((field) => {
+    field.addEventListener("blur", () => validateField(field));
+  });
 
-  // ── Submit handler ──
-  form.addEventListener("submit", async function (e) {
+  /* Submit */
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    e.stopImmediatePropagation();
 
-    // Validate all visible fields
-    var fields = form.querySelectorAll("input:not([type='hidden']), textarea");
-    var isValid = true;
-    fields.forEach(function (field) {
-      if (!validateField(field)) isValid = false;
-    });
+    /* Validate all fields first */
+    const fields = form.querySelectorAll("input:not([type='hidden']), textarea");
+    let isValid  = true;
+    fields.forEach((f) => { if (!validateField(f)) isValid = false; });
     if (!isValid) return;
 
-    // ── Loading state: add .loading class for CSS-driven spinner ──
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.classList.add("loading");
-    }
+    /* Loading state */
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.classList.add("loading"); }
     if (successMsg) successMsg.style.display = "none";
-    if (errorMsg) errorMsg.style.display = "none";
+    if (errorMsg)   errorMsg.style.display   = "none";
 
     try {
-      var data = new FormData(form);
-      var res = await fetch(form.action, {
-        method: "POST",
-        body: data,
+      const res = await fetch(form.action, {
+        method:  "POST",
+        body:    new FormData(form),
         headers: { Accept: "application/json" },
       });
 
       if (res.ok) {
-        // ── Success ──
         form.reset();
-        // Reset floating labels (clear :not(:placeholder-shown) state)
-        form.querySelectorAll("input, textarea").forEach(function (f) {
-          f.blur();
-        });
-        // Clear validation error states
-        form.querySelectorAll(".cf-field").forEach(function (w) {
+        form.querySelectorAll("input, textarea").forEach((f) => f.blur());
+        form.querySelectorAll(".cf-field").forEach((w) => {
           w.classList.remove("has-error");
-          var err = w.querySelector(".error-message");
+          const err = w.querySelector(".error-message");
           if (err) err.textContent = "";
         });
         if (successMsg) {
           successMsg.style.display = "block";
-          setTimeout(function () {
-            successMsg.style.display = "none";
-          }, 6000);
+          setTimeout(() => { successMsg.style.display = "none"; }, 6000);
         }
       } else {
-        // ── Server error — show inline error div ──
-        var json = {};
-        try { json = await res.json(); } catch (_) {}
         if (errorMsg) {
           errorMsg.style.display = "block";
-          setTimeout(function () {
-            errorMsg.style.display = "none";
-          }, 8000);
+          setTimeout(() => { errorMsg.style.display = "none"; }, 8000);
         }
       }
-    } catch (err) {
-      // ── Network error — show inline error div ──
+    } catch {
       if (errorMsg) {
         errorMsg.style.display = "block";
-        setTimeout(function () {
-          errorMsg.style.display = "none";
-        }, 8000);
+        setTimeout(() => { errorMsg.style.display = "none"; }, 8000);
       }
     } finally {
-      // ── Always restore button ──
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove("loading");
-      }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.classList.remove("loading"); }
     }
   });
 })();
