@@ -57,15 +57,21 @@ if (menuIcon && navbar) {
 }
 
 /* ─── 5. DARK MODE ──────────────────────────────────────────── */
-/* Restore saved preference on load */
+/* Restore saved preference as early as possible (body class only) */
 if (safeLocalStorageGet("portfolio-theme") === "dark") {
   document.body.classList.add("dark");
   themeToggle?.classList.replace("bx-moon", "bx-sun");
-  const ghImg = document.getElementById("github-stats-img");
-  if (ghImg) {
-    ghImg.src = "https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true";
-  }
 }
+
+/* Swap GitHub stats img after DOM is ready (Fix 8) */
+document.addEventListener("DOMContentLoaded", () => {
+  if (safeLocalStorageGet("portfolio-theme") === "dark") {
+    const ghImg = document.getElementById("github-stats-img");
+    if (ghImg) {
+      ghImg.src = "https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true";
+    }
+  }
+});
 
 themeToggle?.addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
@@ -80,44 +86,24 @@ themeToggle?.addEventListener("click", () => {
   }
 });
 
-/* ─── 6. SCROLL REVEAL (.reveal-on-scroll) ──────────────────── */
+/* ─── 6 + 7. SCROLL REVEAL & SECTION VISIBILITY (consolidated — Fix 6) ── */
+/* Single observer adds both .revealed and .visible simultaneously */
 if (!reducer.matches) {
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
+          entry.target.classList.add("revealed", "visible");
           revealObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.13 }
   );
-  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+  document.querySelectorAll(".reveal-on-scroll, section").forEach((el) => {
     revealObserver.observe(el);
   });
 }
-
-/* ─── 7. SECTION VISIBILITY ANIMATIONS (.visible) ───────────── */
-/* Separate observer used by the CSS `section { opacity: 0 }` rule */
-document.addEventListener("DOMContentLoaded", () => {
-  if (reducer.matches) return; /* already handled in §3 */
-
-  const visibilityObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          visibilityObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll("section").forEach((s) => {
-    visibilityObserver.observe(s);
-  });
-});
 
 /* ─── 8. ACTIVE NAV HIGHLIGHT (IntersectionObserver) ────────── */
 (function () {
@@ -171,18 +157,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ─── 10. SCROLL PROGRESS BAR + SCROLL-TO-TOP BUTTON ────────── */
+/* Fix 32 — passive listener + rAF throttle for scroll performance */
 if (scrollToTopBtn) {
+  let scrollTicking = false;
   window.addEventListener("scroll", () => {
-    /* Progress bar */
-    if (scrollProgress) {
-      const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-      scrollProgress.style.width = `${pct}%`;
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        /* Progress bar */
+        if (scrollProgress) {
+          const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+          scrollProgress.style.width = `${pct}%`;
+        }
+        /* Show/hide button */
+        scrollToTopBtn.classList.toggle("visible", window.scrollY > 300);
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
-
-    /* Show/hide button */
-    scrollToTopBtn.classList.toggle("visible", window.scrollY > 300);
-  });
+  }, { passive: true });
 
   scrollToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: reducer.matches ? "auto" : "smooth" });
@@ -190,7 +183,8 @@ if (scrollToTopBtn) {
 }
 
 /* ─── 11. TYPED.JS HERO SUBTITLE ────────────────────────────── */
-document.addEventListener("DOMContentLoaded", () => {
+/* Use window 'load' event (Fix 1) so both defer scripts are guaranteed parsed */
+window.addEventListener("load", () => {
   if (reducer.matches) return;
   if (typeof Typed === "undefined") return;
   const typedEl = document.querySelector("#typed-output");
@@ -216,6 +210,38 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.querySelector(".footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+});
+
+/* Fix 18 — Textarea character counter */
+document.addEventListener("DOMContentLoaded", () => {
+  const textarea = contactForm?.querySelector('textarea[name="message"]');
+  const counter  = contactForm?.querySelector('.char-counter');
+  if (textarea && counter) {
+    textarea.addEventListener('input', () => {
+      counter.textContent = `${textarea.value.length} / 1000`;
+      counter.style.color = textarea.value.length > 900
+        ? 'var(--error-color)'
+        : 'var(--muted-color)';
+    });
+  }
+});
+
+/* Fix 20 — Project filter bar */
+document.addEventListener('DOMContentLoaded', () => {
+  const filterBtns   = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const tags = card.dataset.tags || '';
+        const show = filter === 'all' || tags.includes(filter);
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
 });
 
 /* ─── 13. COPY EMAIL TO CLIPBOARD ───────────────────────────── */
@@ -464,12 +490,14 @@ contactForm?.querySelectorAll("input, textarea").forEach((field) => {
         }
       } else {
         if (errorMsg) {
+          errorMsg.textContent = "Something went wrong. Please email me directly at apoorvjainji@gmail.com";
           errorMsg.style.display = "block";
           setTimeout(() => { errorMsg.style.display = "none"; }, 8000);
         }
       }
     } catch {
       if (errorMsg) {
+        errorMsg.textContent = "Something went wrong. Please email me directly at apoorvjainji@gmail.com";
         errorMsg.style.display = "block";
         setTimeout(() => { errorMsg.style.display = "none"; }, 8000);
       }

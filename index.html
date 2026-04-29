@@ -6,14 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apoorv Jain | Full-Stack Developer</title>
     <meta name="description" content="Apoorv Jain is a full-stack developer building responsive web apps, solving LeetCode problems, and sharing practical project work through a polished personal portfolio.">
+    <!-- Fix 15 — og:url + twitter:description -->
     <meta property="og:title" content="Apoorv Jain | Full-Stack Developer">
     <meta property="og:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, certifications, and hands-on development experience.">
+    <meta property="og:url" content="https://apoorv-jn24.github.io/">
     <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22630%22 viewBox=%220 0 1200 630%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%231a1a2e%22/><text x=%2250%25%22 y=%2250%25%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22%23754ef9%22 text-anchor=%22middle%22 dy=%22.3em%22>Apoorv Jain | Portfolio</text></svg>">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Apoorv Jain | Portfolio">
+    <meta name="twitter:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, and hands-on development experience.">
+    <!-- Fix 19 — theme-color -->
+    <meta name="theme-color" content="#754ef9">
     <link rel="canonical" href="https://apoorv-jn24.github.io/">
-    <link rel="preload" as="image" href="images/Screenshot_2025-12-18-15-15-13-838_com.miui.gallery-edit.jpg">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preload" as="image" href="images/portfolio-photo.jpg">
+    <!-- Fix 30 — Google Fonts moved from CSS @import to HTML link tags -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Fix 29 — Boxicons with crossorigin for subresource safety -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' crossorigin='anonymous'>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
     <link rel="stylesheet" href="css/style.css">
     <noscript>
@@ -45,7 +55,7 @@
             <a href="#contact">Contact</a>
         </nav>
 
-        <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="nav-resume-btn" target="_blank" onclick="setTimeout(() => { alert('If the download does not start automatically, we will open a fallback viewer.'); window.open('https://drive.google.com/file/d/1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm/view?usp=sharing', '_blank'); }, 2500)" rel="noopener noreferrer">
+        <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="nav-resume-btn" target="_blank" rel="noopener noreferrer">
             <i class='bx bx-download'></i> Resume
         </a>
 
@@ -93,20 +103,30 @@
             </div>
 
             <div class="hero-actions">
-                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn" target="_blank" rel="noopener noreferrer" onclick="setTimeout(() => { alert('If the download does not start automatically, we will open a fallback viewer.'); window.open('https://drive.google.com/file/d/1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm/view?usp=sharing', '_blank'); }, 2500)"><i class='bx bx-download'></i> Download Resume</a>
+                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn" target="_blank" rel="noopener noreferrer"><i class='bx bx-download'></i> Download Resume</a>
                 <a href="#contact" class="btn btn-outline">Contact Me</a>
             </div>
         </div>
 
+        <!-- SAFE version — no picture tag until webp file exists -->
         <div class="home-img">
-            <img src="images/portfolio-photo.jpg" alt="Apoorv Jain portrait" width="400" height="400" loading="eager">
+            <img
+                src="images/ProfilePicture.jpg"
+                alt="Apoorv Jain portrait"
+                width="400"
+                height="400"
+                loading="eager"
+                decoding="async"
+                onerror="this.style.opacity='0'"
+            >
         </div>
     </section>
 
     <!-- ═══════════════════ ABOUT ═══════════════════ -->
     <section class="about reveal-on-scroll" id="about">
+        <!-- Fix 27 — CSS background-image div; reuses browser cache from hero eager load -->
         <div class="about-img">
-            <img src="images/portfolio-photo.jpg" alt="Apoorv Jain profile photo" width="280" height="280" loading="lazy">
+            <div class="about-photo" role="img" aria-label="Apoorv Jain profile photo"></div>
         </div>
 
         <div class="about-content">
@@ -134,12 +154,12 @@
                     <i class='bx bxs-envelope'></i>
                     <div>
                         <h5>Email</h5>
-                        <p>
+                        <div class="email-row">
                             <a href="mailto:apoorvjainji@gmail.com">apoorvjainji@gmail.com</a>
                             <button class="copy-email-btn" data-email="apoorvjainji@gmail.com" aria-label="Copy email to clipboard" title="Copy email">
                                 <i class='bx bx-copy'></i>
                             </button>
-                        </p>
+                        </div>
                     </div>
                 </div>
                 <div class="info-card">
@@ -156,6 +176,12 @@
     <!-- ═══════════════════ SKILLS ═══════════════════ -->
     <section class="skills reveal-on-scroll" id="skills">
         <h2 class="heading">My <span>Skills</span></h2>
+
+        <div class="skills-legend">
+            <span><span class="skill-dot dot-proficient"></span> Proficient</span>
+            <span><span class="skill-dot dot-familiar"></span> Familiar</span>
+            <span><span class="skill-dot dot-learning"></span> Learning</span>
+        </div>
 
         <div class="skills-container">
             <!-- ── Frontend Development ── -->
@@ -296,113 +322,48 @@
     </section>
 
     <!-- ═══════════════════ LIVE ACTIVITY ═══════════════════ -->
-    <section class="activity reveal-on-scroll" id="activity" data-github-username="apoorv-jn24">
-        <h2 class="heading">Live <span>Activity</span></h2>
-        <p class="activity-intro">A live snapshot of my coding journey, pulling public GitHub activity into the portfolio.</p>
+   <section class="activity premium-activity reveal-on-scroll" id="activity">
+    <h2 class="heading">Live <span>Activity</span></h2>
+    <p class="activity-intro">
+        Consistent coding and open-source contributions over time.
+    </p>
 
-        <div class="activity-grid">
-            <article class="activity-panel">
-                <div class="panel-header">
-                    <div>
-                        <p class="panel-eyebrow">GitHub</p>
-                        <h3>Open Source Pulse</h3>
-                    </div>
-                    <a class="panel-link" href="https://github.com/apoorv-jn24" target="_blank" rel="noopener noreferrer">Visit Profile</a>
+    <div class="activity-wrapper">
+
+        <div class="activity-card">
+
+            <div class="activity-card-top">
+                <div>
+                    <p class="panel-eyebrow">GitHub</p>
+                    <h3>Contribution Graph</h3>
                 </div>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-label">Followers</span>
-                        <strong class="stat-value" data-github-followers>--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Public Repos</span>
-                        <strong class="stat-value" data-github-repos>--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Following</span>
-                        <strong class="stat-value" data-github-following>--</strong>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Recent Pushes</span>
-                        <strong class="stat-value" data-github-pushes>--</strong>
-                    </div>
-                </div>
+                <a href="https://github.com/apoorv-jn24" target="_blank" class="panel-link">
+                    View Profile ↗
+                </a>
+            </div>
 
-                <!-- GitHub README Stats — auto-updates, zero backend needed -->
-                <div class="github-stats-embed">
-                    <img src="https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=default&hide_border=true&count_private=true"
-                         id="github-stats-img" alt="GitHub Stats for Apoorv Jain" width="495" height="195" loading="lazy" />
-                </div>
+            <div class="heatmap-container">
+                <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener noreferrer" aria-label="View GitHub profile">
+                    <img
+                        src="https://ghchart.rshah.org/754ef9/apoorv-jn24"
+                        alt="GitHub contribution heatmap for apoorv-jn24"
+                        width="800"
+                        height="128"
+                        loading="lazy"
+                    >
+                </a>
+            </div>
 
-                <p class="activity-summary">I code consistently — here's my contribution activity.</p>
+            <div class="activity-footer">
+                <span class="live-dot"></span>
+                <span>Updated automatically</span>
+            </div>
 
-                <div class="activity-heatmap">
-                    <img src="https://ghchart.rshah.org/754ef9/apoorv-jn24" alt="GitHub contribution chart for Apoorv Jain" width="663" height="104" loading="lazy" onerror="this.parentElement.innerHTML='<p>GitHub activity unavailable</p>'">
-                </div>
-
-                <div class="activity-feed">
-                    <div class="feed-header">
-                        <h4>Recent GitHub Events</h4>
-                        <span data-github-updated>Loading...</span>
-                    </div>
-                    <ul class="feed-list" data-github-events>
-                        <li class="feed-item muted">Loading recent activity...</li>
-                    </ul>
-                </div>
-            </article>
-
-            <article class="activity-panel">
-                <div class="panel-header">
-                    <div>
-                        <p class="panel-eyebrow">LeetCode</p>
-                        <h3>Problem Solving Momentum</h3>
-                    </div>
-                    <a class="panel-link" href="https://leetcode.com/u/apoorv_jain_24/" target="_blank" rel="noopener noreferrer">View Profile</a>
-                </div>
-                <p class="panel-subtitle">Consistently practising DSA with focus on real interview patterns across arrays, trees, and dynamic programming.</p>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-label">Problems Solved</span>
-                        <strong class="stat-value">200+</strong>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Max Streak</span>
-                        <strong class="stat-value">200 days</strong>
-                        <span style="font-size: 1.1rem; opacity: 0.7;">(Jan 2025)</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Badge</span>
-                        <strong class="stat-value">Gold &#127885;</strong>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-label">Top Focus</span>
-                        <strong class="stat-value">Arrays &amp; DP</strong>
-                    </div>
-                </div>
-
-                <div class="lc-difficulty">
-                    <div class="lc-bar-row">
-                        <span class="lc-label lc-easy">Easy</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-easy" style="width:40%"></div></div>
-                        <span class="lc-count">~80</span>
-                    </div>
-                    <div class="lc-bar-row">
-                        <span class="lc-label lc-medium">Medium</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-medium" style="width:47.5%"></div></div>
-                        <span class="lc-count">~95</span>
-                    </div>
-                    <div class="lc-bar-row">
-                        <span class="lc-label lc-hard">Hard</span>
-                        <div class="lc-bar"><div class="lc-fill lc-fill-hard" style="width:12.5%"></div></div>
-                        <span class="lc-count">~25</span>
-                    </div>
-                </div>
-            </article>
         </div>
-    </section>
 
+    </div>
+</section>
     <!-- ═══════════════════ WORK EXPERIENCE ═══════════════════ -->
     <section class="timeline reveal-on-scroll" id="experience">
         <h2 class="heading">Work <span>Experience</span></h2>
@@ -412,7 +373,7 @@
                     <span class="timeline-date">Aug 2024 &ndash; Sep 2024 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Java Developer Intern</h3>
                     <h4 class="timeline-company">
-                        <span class="company-logo-placeholder">CS</span>
+                        <i class='bx bx-code-curly company-logo-icon' title="CodSoft" aria-label="CodSoft"></i>
                         CodSoft, Remote
                     </h4>
                     <ul class="timeline-bullets">
@@ -427,7 +388,7 @@
                     <span class="timeline-date">Aug 2023 &ndash; Sep 2023 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Python Developer Intern</h3>
                     <h4 class="timeline-company">
-                        <span class="company-logo-placeholder">CS</span>
+                        <i class='bx bx-code-curly company-logo-icon' title="CodSoft" aria-label="CodSoft"></i>
                         CodSoft, Remote
                     </h4>
                     <ul class="timeline-bullets">
@@ -482,15 +443,29 @@
     <section class="portfolio reveal-on-scroll" id="portfolio">
         <h2 class="heading">My <span>Projects</span></h2>
 
+        <!-- Fix 20 — Project filter bar -->
+        <div class="project-filters" role="group" aria-label="Filter projects by technology">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="javascript">JavaScript</button>
+            <button class="filter-btn" data-filter="java">Java</button>
+            <button class="filter-btn" data-filter="react">React</button>
+            <button class="filter-btn" data-filter="python">Python</button>
+            <button class="filter-btn" data-filter="ai">AI</button>
+        </div>
+
         <div class="projects-grid">
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript">
     <span class="case-study-number">01</span>
 
     <div class="project-frame">
-        <div class="project-cover" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4facfe 100%);">
-            <span class="project-cover-title">Study Buddy</span>
-            <span class="project-cover-stack">Productivity &middot; JavaScript &middot; Web App</span>
-        </div>
+        <div class="project-cover">
+    <img src="images/StudyBuddyProject.png" alt="Study Buddy App" class="project-img">
+
+    <div class="overlay">
+        <span class="project-cover-title">Study Buddy</span>
+        <span class="project-cover-stack">Productivity &middot; JavaScript &middot; Web App</span>
+    </div>
+</div>
     </div>
 
     <div class="project-info">
@@ -527,13 +502,16 @@
     </div>
 </div>
             <!-- Card 2: Personal Portfolio Website -->
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript">
                 <span class="case-study-number">02</span>
                 <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 60%, #754ef9 100%);">
-                        <span class="project-cover-title">Portfolio</span>
-                        <span class="project-cover-stack">HTML &middot; CSS &middot; JavaScript</span>
-                    </div>
+                    <div class="project-cover">
+                        <img src="images/Personal Portfolio Project.png" alt="Portfolio Project" class="project-img">
+                        <div class="overlay">
+                            <span class="project-cover-title">Portfolio</span>
+                            <span class="project-cover-stack">HTML &middot; CSS &middot; JavaScript</span>
+                        </div>
+                        </div>
                 </div>
                 <div class="project-info">
                     <h3 class="project-name">Personal Portfolio Website <span class="project-tag">&ndash; Web App</span></h3>
@@ -559,12 +537,16 @@
             </div>
 
             <!-- Card 3: Shopping Website Clone -->
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript">
                 <span class="case-study-number">03</span>
                 <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
-                        <span class="project-cover-title">Shopping Clone</span>
-                        <span class="project-cover-stack">HTML &middot; CSS &middot; Responsive UI</span>
+                    <div class="project-cover">
+                        <img src="assets/shopping-clone.png" alt="Shopping Clone UI" class="project-img">
+
+                        <div class="overlay">
+                            <span class="project-cover-title">Shopping Clone</span>
+                            <span class="project-cover-stack">HTML &middot; CSS &middot; Responsive UI</span>
+                        </div>
                     </div>
                 </div>
                 <div class="project-info">
@@ -591,13 +573,17 @@
             </div>
 
             <!-- Card 4: Electronic Shop -->
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript">
                 <span class="case-study-number">04</span>
                 <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #754ef9 100%);">
-                        <span class="project-cover-title">Electronic Shop</span>
-                        <span class="project-cover-stack">HTML &middot; CSS &middot; JavaScript</span>
-                    </div>
+                   <div class="project-cover">
+                            <img src="images/Everest Electricals.png" alt="Electronic Shop Website" class="project-img">
+
+                            <div class="overlay">
+                                <span class="project-cover-title">Electronic Shop</span>
+                                <span class="project-cover-stack">HTML &middot; CSS &middot; JavaScript</span>
+                            </div>
+                        </div>
                 </div>
                 <div class="project-info">
                     <h3 class="project-name">Electronic Shop <span class="project-tag">&ndash; Web App</span></h3>
@@ -623,12 +609,16 @@
             </div>
 
             <!-- Card 5: TradeHub -->
-            <div class="project-card">
+            <div class="project-card" data-tags="react javascript">
                 <span class="case-study-number">05</span>
                 <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);">
-                        <span class="project-cover-title">TradeHub</span>
-                        <span class="project-cover-stack">React &middot; Node.js &middot; MongoDB</span>
+                    <div class="project-cover">
+                        <img src="images/tradehub.png" alt="TradeHub App" class="project-img">
+
+                        <div class="overlay">
+                            <span class="project-cover-title">TradeHub</span>
+                            <span class="project-cover-stack">React &middot; Node.js &middot; MongoDB</span>
+                        </div>
                     </div>
                 </div>
                 <div class="project-info">
@@ -655,7 +645,7 @@
             </div>
 
             <!-- Card 6: Budget Tracker -->
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript">
                 <span class="case-study-number">06</span>
                 <div class="project-frame">
                     <div class="project-cover" style="background: linear-gradient(135deg, #064e3b 0%, #0f766e 55%, #14b8a6 100%);">
@@ -677,7 +667,7 @@
                         <span class="tech-badge">CSS</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-demo">Live Demo (Coming Soon) &#8599;</a>
+                        <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Coming Soon</button>
                         <a href="https://github.com/apoorv-jn24/Budget-Tracker" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
@@ -687,7 +677,7 @@
             </div>
 
             <!-- Card 7: VideoMind AI -->
-            <div class="project-card">
+            <div class="project-card" data-tags="javascript ai">
     <span class="case-study-number">07</span>
 
     <div class="project-frame">
@@ -717,9 +707,7 @@
         </div>
 
         <div class="project-btns">
-            <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener" class="btn-demo">
-                Live Demo (Coming Soon) &#8599;
-            </a>
+            <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Coming Soon</button>
 
             <a href="https://github.com/apoorv-jn24/VideoMInd-Ai" target="_blank" rel="noopener" class="btn-github">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -734,36 +722,15 @@
         </div>
 
         <!-- ═══════════════════ FULL-TIME CTA ═══════════════════ -->
-    </section>
-
-    <!-- FULL-TIME CTA -->
-    <section class="fulltime-cta reveal-on-scroll" id="cta">
-        <h2>Open to full-time roles starting June 2026</h2>
-        <p>Currently seeking opportunities in Software Engineering and Full-Stack Development.</p>
-        <div class="btn-group">
-            <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn btn-white" target="_blank" rel="noopener noreferrer">Download CV</a>
-            <a href="#contact" class="btn btn-outline-white">Contact Me</a>
+        <div class="fulltime-cta">
+            <h2>Open to Full-Time Roles from June 2026</h2>
+            <p>Looking for a backend, full-stack, or Java/Python role where I can ship real products and keep learning fast.</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-white">Let's Talk</a>
+                <a href="https://drive.google.com/uc?export=download&id=1rTGBFKvNU31RTKrdQHNImDLlMQB9d6qm" class="btn btn-outline-white" target="_blank" rel="noopener noreferrer">Download Resume</a>
+            </div>
         </div>
     </section>
-
-    <!-- ═══════════════════ MARQUEE TICKER ═══════════════════ -->
-    <div class="marquee-section" aria-hidden="true">
-        <div class="marquee-track">
-            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&bull;</span>
-            <span>AVAILABLE JUNE 2026</span> <span class="marquee-sep">&bull;</span>
-            <span>FULL STACK DEVELOPER</span> <span class="marquee-sep">&bull;</span>
-            <span>PROBLEM SOLVER</span> <span class="marquee-sep">&bull;</span>
-            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&bull;</span>
-            <span>AVAILABLE JUNE 2026</span> <span class="marquee-sep">&bull;</span>
-            <span>FULL STACK DEVELOPER</span> <span class="marquee-sep">&bull;</span>
-            <span>PROBLEM SOLVER</span> <span class="marquee-sep">&bull;</span>
-            <span>OPEN TO OPPORTUNITIES</span> <span class="marquee-sep">&bull;</span>
-            <span>AVAILABLE JUNE 2026</span> <span class="marquee-sep">&bull;</span>
-            <span>FULL STACK DEVELOPER</span> <span class="marquee-sep">&bull;</span>
-            <span>PROBLEM SOLVER</span> <span class="marquee-sep">&bull;</span>
-        </div>
-    </div>
-
     <!-- ═══════════════════ CONTACT ═══════════════════ -->
     <section class="contact reveal-on-scroll" id="contact">
         <div class="contact-wrapper">
@@ -777,14 +744,6 @@
                     <span class="copy-tooltip">Copied!</span>
                 </button>
             </div>
-
-            <div class="contact-social-links" style="text-align: center; margin-top: 2rem; margin-bottom: 3rem;">
-                <!-- REPLACE WITH REAL NUMBER -->
-                <a href="https://wa.me/+918477838480" target="_blank" rel="noopener noreferrer" class="btn" style="background-color: #25D366; border-color: #25D366; color: white; display: inline-flex; align-items: center; gap: 0.8rem; padding: 1.2rem 2.4rem;">
-                    <i class='bx bxl-whatsapp' style="font-size: 2.2rem;"></i> Chat on WhatsApp
-                </a>
-            </div>
-
             <form action="https://formspree.io/f/xkokeypz" method="POST" novalidate id="contactForm">
                 <input type="hidden" name="_subject" value="Portfolio Contact">
 
@@ -800,9 +759,11 @@
                     <small class="error-message"></small>
                 </div>
 
+                <!-- Fix 18 — textarea with maxlength + char counter -->
                 <div class="cf-field">
-                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <textarea name="message" placeholder="Your Message" required maxlength="1000"></textarea>
                     <small class="error-message"></small>
+                    <span class="char-counter">0 / 1000</span>
                 </div>
 
                 <button type="submit" class="cf-send-btn" id="cfSubmitBtn">
@@ -819,16 +780,17 @@
             </div>
         </div>
     </section>
-
     <!-- ═══════════════════ FOOTER ═══════════════════ -->
     <footer class="footer">
         <p class="footer-brand">Apoorv Jain</p>
         <nav class="footer-nav">
+            <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
             <a href="#portfolio">Projects</a>
             <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
         </nav>
         <div class="footer-socials">
             <a href="https://www.linkedin.com/in/apoorv-jain-0b7b14253/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
@@ -844,7 +806,7 @@
     </button>
 
     <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js" defer></script>
     <script src="js/script.js" defer></script>
 </body>
 </html>
