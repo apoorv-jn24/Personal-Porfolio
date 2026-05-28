@@ -104,7 +104,17 @@ if (!reducer.matches) {
     revealObserver.observe(el);
   });
 }
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+        header.classList.remove('floating');
+    } else {
+        header.classList.add('floating');
+    }
+}, { passive: true });
 
+// Set initial state
+header.classList.add('floating');
 /* ─── 8. ACTIVE NAV HIGHLIGHT (IntersectionObserver) ────────── */
 (function () {
   const sections = document.querySelectorAll(
