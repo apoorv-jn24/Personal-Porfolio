@@ -383,13 +383,16 @@ span {
 }
 
 .activity-wrapper {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 34rem), 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    max-width: 1120px;
+    margin: 0 auto;
 }
 
 .activity-card {
     width: 100%;
-    max-width: 820px;
     padding: 2.5rem;
     border-radius: 20px;
 
@@ -406,6 +409,11 @@ span {
         inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 
     transition: all 0.3s ease;
+}
+
+.activity-card--leetcode {
+    display: flex;
+    flex-direction: column;
 }
 
 .activity-card:hover {
@@ -449,6 +457,49 @@ span {
     gap: 0.8rem;
     font-size: 1.3rem;
     color: var(--muted-color);
+}
+
+.leetcode-activity {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 16rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.leetcode-activity img {
+    width: 12rem;
+    height: 12rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 1.2rem;
+}
+
+.leetcode-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.leetcode-stats strong {
+    color: var(--main-color);
+    font-size: 3.2rem;
+    line-height: 1;
+}
+
+.leetcode-stats span {
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.leetcode-stats p {
+    color: var(--muted-color);
+    font-size: 1.35rem;
+    line-height: 1.6;
+    margin-top: 0.4rem;
 }
 
 /* Live dot animation */
@@ -3203,6 +3254,7 @@ body.dark .copy-tooltip::after {
 }
 /* Styled text-cover div (replaces <img> in all 6 cards) */
 .project-cover {
+    position: relative;
     width: 100%;
     height: 19rem;
     display: flex;
@@ -3212,8 +3264,45 @@ body.dark .copy-tooltip::after {
     gap: 1rem;
     padding: 2rem;
     border-radius: 8px;
+    overflow: hidden;
+    background: #111827;
 }
+
+.project-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-cover .overlay {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 4rem 1.6rem 1.6rem;
+    background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.9));
+    z-index: 1;
+}
+
+.project-status {
+    align-self: center;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(245, 158, 11, 0.95);
+    color: #111827;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
 .project-cover-title {
+    position: relative;
+    z-index: 1;
     font-size: 2.2rem;
     font-weight: 800;
     color: #ffffff;
@@ -3222,6 +3311,8 @@ body.dark .copy-tooltip::after {
     letter-spacing: -0.01em;
 }
 .project-cover-stack {
+    position: relative;
+    z-index: 1;
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.52);
     letter-spacing: 0.06em;
@@ -3517,6 +3608,17 @@ body.dark .formspree-notice code {
     background: var(--main-color);
     color: #fff;
     border-color: var(--main-color);
+}
+
+@media (max-width: 560px) {
+    .leetcode-activity {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .leetcode-stats {
+        align-items: center;
+    }
 }
 
 /* ── Fix 18 — Textarea character counter ── */

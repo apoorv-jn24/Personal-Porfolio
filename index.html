@@ -6,17 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apoorv Jain | Full-Stack Developer</title>
     <meta name="description" content="Apoorv Jain is a full-stack developer building responsive web apps, solving LeetCode problems, and sharing practical project work through a polished personal portfolio.">
-    <!-- Fix 15 — og:url + twitter:description -->
+    <!-- Social preview metadata -->
     <meta property="og:title" content="Apoorv Jain | Full-Stack Developer">
     <meta property="og:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, certifications, and hands-on development experience.">
-    <meta property="og:url" content="https://apoorv-jn24.github.io/">
-    <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22630%22 viewBox=%220 0 1200 630%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%231a1a2e%22/><text x=%2250%25%22 y=%2250%25%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22%23754ef9%22 text-anchor=%22middle%22 dy=%22.3em%22>Apoorv Jain | Portfolio</text></svg>">
+    <meta property="og:url" content="https://apoorvjainn.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://apoorvjainn.vercel.app/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Apoorv Jain portfolio social preview">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Apoorv Jain | Portfolio">
     <meta name="twitter:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, and hands-on development experience.">
+    <meta name="twitter:image" content="https://apoorvjainn.vercel.app/images/og-image.png">
     <!-- Fix 19 — theme-color -->
     <meta name="theme-color" content="#754ef9">
-    <link rel="canonical" href="https://apoorv-jn24.github.io/">
+    <link rel="canonical" href="https://apoorvjainn.vercel.app/">
     <link rel="preload" as="image" href="images/portfolio-photo.jpg">
     <!-- Fix 30 — Google Fonts moved from CSS @import to HTML link tags -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,22 +79,22 @@
             <h3 class="hero-vp">I build full-stack apps that actually work</h3>
 
             <div class="hero-typed-wrap">
-                <span class="typed-prefix">I'm a </span><span id="typed-output"></span>
+                <span class="typed-prefix">I'm a </span><span id="typed-output">Full-Stack Developer</span>
             </div>
 
-            <p> 450+ LeetCode Problems | Open to work from June 2026</p>
+            <p>450+ LeetCode Problems Solved | Open to work from June 2026</p>
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <strong>2 Internships</strong>
-                    <span>Python Developer</span>
+                    <strong>2 Internship Roles</strong>
+                    <span>Java + Python at CodSoft</span>
                 </div>
                 <div class="hero-stat">
                     <strong>7+</strong>
                     <span>Projects Built</span>
                 </div>
                 <div class="hero-stat">
-                    <strong>200+</strong>
+                    <strong>450+</strong>
                     <span>Problems Solved</span>
                 </div>
             </div>
@@ -112,11 +117,12 @@
         <div class="home-img">
             <img
                 src="images/ProfilePicture.jpg"
-                alt="Apoorv Jain portrait"
+                alt="Apoorv Jain professional portrait"
                 width="400"
                 height="400"
                 loading="eager"
                 decoding="async"
+                fetchpriority="high"
                 onerror="this.style.opacity='0'"
             >
         </div>
@@ -362,6 +368,39 @@
 
         </div>
 
+        <div class="activity-card activity-card--leetcode">
+            <div class="activity-card-top">
+                <div>
+                    <p class="panel-eyebrow">LeetCode</p>
+                    <h3>Problem Solving</h3>
+                </div>
+
+                <a href="https://codolio.com/profile/Apoorv_jain24" target="_blank" rel="noopener noreferrer" class="panel-link">
+                    View Profile &#8599;
+                </a>
+            </div>
+
+            <div class="leetcode-activity">
+                <img
+                    src="images/leetcode-badge.png"
+                    alt="LeetCode achievement badge"
+                    width="180"
+                    height="180"
+                    loading="lazy"
+                >
+                <div class="leetcode-stats">
+                    <strong>450+</strong>
+                    <span>Problems Solved</span>
+                    <p>DSA practice across arrays, strings, recursion, dynamic programming, and core interview patterns.</p>
+                </div>
+            </div>
+
+            <div class="activity-footer">
+                <span class="live-dot"></span>
+                <span>Matched with hero stats</span>
+            </div>
+        </div>
+
     </div>
 </section>
     <!-- ═══════════════════ WORK EXPERIENCE ═══════════════════ -->
@@ -447,9 +486,7 @@
         <div class="project-filters" role="group" aria-label="Filter projects by technology">
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="javascript">JavaScript</button>
-            <button class="filter-btn" data-filter="java">Java</button>
             <button class="filter-btn" data-filter="react">React</button>
-            <button class="filter-btn" data-filter="python">Python</button>
             <button class="filter-btn" data-filter="ai">AI</button>
         </div>
 
@@ -514,10 +551,10 @@
                         </div>
                 </div>
                 <div class="project-info">
-                    <h3 class="project-name">Personal Portfolio Website <span class="project-tag">&ndash; Web App</span></h3>
+                    <h3 class="project-name">Portfolio Case Study <span class="project-tag">&ndash; Web App</span></h3>
                     <p class="project-desc">
                         <strong>Problem:</strong> A static resume does not show real projects, skills, or personality clearly.<br>
-                        <strong>Solution:</strong> Built a responsive portfolio with dark mode, live activity, and contact flows.<br>
+                        <strong>Solution:</strong> Built this responsive portfolio with dark mode, live activity, and contact flows.<br>
                         <strong>Stack:</strong> HTML, CSS, JavaScript.<br>
                         <strong>Impact:</strong> Gives recruiters one polished place to review work, links, and experience.
                     </p>
@@ -527,7 +564,7 @@
                         <span class="tech-badge">JavaScript</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/Personal-Porfolio/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
+                        <a href="https://apoorvjainn.vercel.app/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
                         <a href="https://github.com/apoorv-jn24/Personal-Porfolio" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
@@ -541,7 +578,7 @@
                 <span class="case-study-number">03</span>
                 <div class="project-frame">
                     <div class="project-cover">
-                        <img src="assets/shopping-clone.png" alt="Shopping Clone UI" class="project-img">
+                        <img src="images/shopping-clone.png" alt="Shopping Clone UI" class="project-img">
 
                         <div class="overlay">
                             <span class="project-cover-title">Shopping Clone</span>
@@ -617,25 +654,25 @@
 
                         <div class="overlay">
                             <span class="project-cover-title">TradeHub</span>
-                            <span class="project-cover-stack">React &middot; Node.js &middot; MongoDB</span>
+                            <span class="project-cover-stack">React &middot; JavaScript &middot; UI Prototype</span>
                         </div>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h3 class="project-name">TradeHub <span class="project-tag">&ndash; Full Stack</span></h3>
+                    <h3 class="project-name">TradeHub <span class="project-tag">&ndash; Frontend Prototype</span></h3>
                     <p class="project-desc">
                         <strong>Problem:</strong> Trading users need a central place to manage listings and activity securely.<br>
-                        <strong>Solution:</strong> Built a marketplace concept with authentication, listings, and dashboard views.<br>
-                        <strong>Stack:</strong> React, Node.js, MongoDB.<br>
-                        <strong>Impact:</strong> Demonstrates full-stack CRUD, API design, and data-driven user workflows.
+                        <strong>Solution:</strong> Built a React marketplace interface with listing, dashboard, and user-flow screens.<br>
+                        <strong>Stack:</strong> React, JavaScript, UI state.<br>
+                        <strong>Impact:</strong> Demonstrates frontend architecture for data-driven marketplace workflows.
                     </p>
                     <div class="tech-badges">
                         <span class="tech-badge">React</span>
-                        <span class="tech-badge">Node.js</span>
-                        <span class="tech-badge">MongoDB</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">UI Prototype</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/TradeHub/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
+                        <a href="https://apoorv-jn24.github.io/TradeHub/" target="_blank" rel="noopener" class="btn-demo">Frontend Demo &#8599;</a>
                         <a href="https://github.com/apoorv-jn24/TradeHub" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
@@ -648,9 +685,13 @@
             <div class="project-card" data-tags="javascript">
                 <span class="case-study-number">06</span>
                 <div class="project-frame">
-                    <div class="project-cover" style="background: linear-gradient(135deg, #064e3b 0%, #0f766e 55%, #14b8a6 100%);">
-                        <span class="project-cover-title">Budget Tracker</span>
-                        <span class="project-cover-stack">JavaScript &middot; Finance &middot; Local Storage</span>
+                    <div class="project-cover">
+                        <img src="images/budget-tracker.png" alt="Budget Tracker app preview" class="project-img">
+                        <div class="overlay">
+                            <span class="project-status">In Progress</span>
+                            <span class="project-cover-title">Budget Tracker</span>
+                            <span class="project-cover-stack">JavaScript &middot; Finance &middot; Local Storage</span>
+                        </div>
                     </div>
                 </div>
                 <div class="project-info">
@@ -667,7 +708,7 @@
                         <span class="tech-badge">CSS</span>
                     </div>
                     <div class="project-btns">
-                        <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Coming Soon</button>
+                        <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">In Progress</button>
                         <a href="https://github.com/apoorv-jn24/Budget-Tracker" target="_blank" rel="noopener" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
@@ -681,9 +722,13 @@
     <span class="case-study-number">07</span>
 
     <div class="project-frame">
-        <div class="project-cover" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
-            <span class="project-cover-title">VideoMind AI</span>
-            <span class="project-cover-stack">AI &middot; JavaScript &middot; APIs</span>
+        <div class="project-cover">
+            <img src="images/videomind-ai.png" alt="VideoMind AI app preview" class="project-img">
+            <div class="overlay">
+                <span class="project-status">In Progress</span>
+                <span class="project-cover-title">VideoMind AI</span>
+                <span class="project-cover-stack">AI &middot; JavaScript &middot; APIs</span>
+            </div>
         </div>
     </div>
 
@@ -707,7 +752,7 @@
         </div>
 
         <div class="project-btns">
-            <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Coming Soon</button>
+            <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">In Progress</button>
 
             <a href="https://github.com/apoorv-jn24/VideoMInd-Ai" target="_blank" rel="noopener" class="btn-github">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -737,6 +782,7 @@
             </div>
             <form action="https://formspree.io/f/xkokeypz" method="POST" novalidate id="contactForm">
                 <input type="hidden" name="_subject" value="Portfolio Contact">
+                <input type="hidden" name="_next" value="https://apoorvjainn.vercel.app/#contact">
 
                 <div class="cf-field">
                     <i class='bx bx-user cf-icon'></i>
@@ -763,10 +809,10 @@
                 </button>
             </form>
 
-            <div id="formError" class="form-error" style="display:none" role="alert"></div>
+            <div id="formError" class="form-error" style="display:none" role="alert" aria-live="polite"></div>
             <div id="formspreeNotice" class="form-notice" style="display:none"></div>
 
-            <div id="formSuccess" class="form-success-msg" style="display:none;" role="alert">
+            <div id="formSuccess" class="form-success-msg" style="display:none;" role="alert" aria-live="polite">
                 Thanks! I'll get back to you within 24 hours.
             </div>
         </div>
@@ -778,9 +824,10 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
+            <a href="#activity">Activity</a>
             <a href="#experience">Experience</a>
-            <a href="#portfolio">Projects</a>
             <a href="#education">Education</a>
+            <a href="#portfolio">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
         <div class="footer-socials">
@@ -788,7 +835,7 @@
             <a href="https://instagram.com/apoorv_jain24/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class='bx bxl-instagram-alt'></i></a>
             <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class='bx bxl-github'></i></a>
         </div>
-        <p class="footer-copy">&copy; <span class="footer-year"></span> Apoorv Jain. All rights reserved.</p>
+        <p class="footer-copy">&copy; <span class="footer-year">2026</span> Apoorv Jain. All rights reserved.</p>
     </footer>
 
     <!-- ═══════════════════ SCROLL TO TOP ═══════════════════ -->

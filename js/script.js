@@ -185,18 +185,23 @@ if (scrollToTopBtn) {
 /* ─── 11. TYPED.JS HERO SUBTITLE ────────────────────────────── */
 /* Use window 'load' event (Fix 1) so both defer scripts are guaranteed parsed */
 window.addEventListener("load", () => {
-  if (reducer.matches) return;
-  if (typeof Typed === "undefined") return;
   const typedEl = document.querySelector("#typed-output");
   if (!typedEl) return;
 
+  const roles = [
+    "Full-Stack Developer",
+    "Problem Solver",
+    "Java & React Developer",
+    "Open Source Contributor",
+  ];
+
+  if (reducer.matches || typeof Typed === "undefined") {
+    typedEl.textContent = roles[0];
+    return;
+  }
+
   new Typed("#typed-output", {
-    strings: [
-      "Full-Stack Developer",
-      "Problem Solver",
-      "Java & React Developer",
-      "Open Source Contributor",
-    ],
+    strings: roles,
     typeSpeed: 50,
     backSpeed: 30,
     backDelay: 2000,
@@ -236,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('active');
       const filter = btn.dataset.filter;
       projectCards.forEach(card => {
-        const tags = card.dataset.tags || '';
+        const tags = (card.dataset.tags || '').split(/\s+/);
         const show = filter === 'all' || tags.includes(filter);
         card.style.display = show ? '' : 'none';
       });
@@ -478,6 +483,8 @@ contactForm?.querySelectorAll("input, textarea").forEach((field) => {
 
       if (res.ok) {
         form.reset();
+        const counter = form.querySelector(".char-counter");
+        if (counter) counter.textContent = "0 / 1000";
         form.querySelectorAll("input, textarea").forEach((f) => f.blur());
         form.querySelectorAll(".cf-field").forEach((w) => {
           w.classList.remove("has-error");
