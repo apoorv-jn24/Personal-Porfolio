@@ -1,8 +1,13 @@
 # Apoorv Jain — Portfolio
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
+
 A responsive personal portfolio built with vanilla HTML, CSS, and JavaScript. No frameworks, no build tools — just clean, hand-written front-end code.
 
-**Live:** [apoorvjain.vercel.app](https://apoorvjain.vercel.app) &nbsp;|&nbsp; **GitHub Pages:** [apoorv-jn24.github.io](https://apoorv-jn24.github.io)
+**Live:** [apoorvjainn.vercel.app](https://apoorvjainn.vercel.app) &nbsp;|&nbsp; **Legacy (GitHub Pages):** [apoorv-jn24.github.io](https://apoorv-jn24.github.io) *(old version — not maintained)*
 
 ---
 
@@ -11,8 +16,8 @@ A responsive personal portfolio built with vanilla HTML, CSS, and JavaScript. No
 - **Dark / Light mode** — persisted via `localStorage`
 - **Scroll animations** — `IntersectionObserver`-based reveal (respects `prefers-reduced-motion`)
 - **Live GitHub activity** — pulls public events and stats from the GitHub API with 30-min session cache
-- **Working contact form** — AJAX submission via Formspree with client-side validation
-- **Typed.js hero subtitle** — cycling role descriptions
+- **Working contact form** — AJAX submission via Formspree with client-side validation *(configure `FORMSPREE_ID` in `js/script.js` before deploying)*
+- **Typed.js hero subtitle** — cycles through: *Full-Stack Developer, Java Developer, Python Developer, DSA Enthusiast*
 - **Scroll progress bar** — top-of-page reading indicator
 - **Fully responsive** — mobile menu, fluid layouts, no horizontal overflow
 
@@ -28,13 +33,9 @@ A responsive personal portfolio built with vanilla HTML, CSS, and JavaScript. No
 | Icons | Boxicons 2.1.4 |
 | Typing effect | Typed.js 2.1.0 |
 | Form handling | Formspree |
-| Hosting | Vercel / GitHub Pages |
+| Hosting | Vercel |
 
 ---
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white)
 
 ## Project Structure
 
@@ -46,7 +47,7 @@ portfolio/
 ├── js/
 │   └── script.js       # All interactivity — 16 documented modules
 └── images/
-    └── portfolio-photo.jpg
+    └── ProfilePicture.jpg
 ```
 
 ---
@@ -56,8 +57,8 @@ portfolio/
 No build step required.
 
 ```bash
-git clone https://github.com/apoorv-jn24/apoorv-jn24.github.io.git
-cd apoorv-jn24.github.io
+git clone https://github.com/apoorv-jn24/apoorvjainn.git
+cd apoorvjainn
 
 # Option 1 — VS Code Live Server (recommended)
 # Install the Live Server extension, right-click index.html → Open with Live Server
@@ -75,13 +76,13 @@ python -m http.server 8000
 
 | Section | What it shows |
 |---|---|
-| Hero | Name, role, availability status, key stats |
+| Hero | Name, role, availability status, 450+ LeetCode problems, key stats |
 | About | Bio, location, email, current focus |
 | Skills | Frontend, Backend, Tools — with proficiency indicators |
 | Activity | Live GitHub stats + recent public event feed |
-| Experience | Internship timeline (2× Python Developer) |
+| Experience | Internship timeline (Java Developer @ CodSoft, Python Developer @ CodSoft) |
 | Education | B.Tech Computer Science, COER University |
-| Projects | 7 projects with stack badges, problem/solution/impact format |
+| Projects | 5 live + 2 in progress — stack badges, problem/solution/impact format |
 | Contact | Formspree form + WhatsApp + copy-email |
 
 ---
@@ -95,3 +96,7 @@ python -m http.server 8000
 ---
 
 *Open to full-time Software Engineering roles starting June 2026.*
+
+---
+
+© 2025 Apoorv Jain
