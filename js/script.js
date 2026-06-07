@@ -7,7 +7,6 @@ const menuIcon       = document.querySelector("#menu-icon");
 const navbar         = document.querySelector(".navbar");
 const themeToggle    = document.querySelector("#darkMode-icon");
 const contactForm    = document.querySelector("#contactForm");
-const activitySection = document.querySelector("#activity");
 const scrollToTopBtn = document.querySelector("#scrollToTopBtn");
 const scrollProgress = document.querySelector(".scroll-progress");
 
@@ -21,12 +20,6 @@ const safeLocalStorageGet = (key) => {
 const safeLocalStorageSet = (key, val) => {
   try { localStorage.setItem(key, val); } catch { /* quota/private mode */ }
 };
-const safeSessionStorageGet = (key) => {
-  try { return sessionStorage.getItem(key); } catch { return null; }
-};
-const safeSessionStorageSet = (key, val) => {
-  try { sessionStorage.setItem(key, val); } catch { /* quota/private mode */ }
-};
 
 /* ─── 3. REDUCED-MOTION: SKIP ANIMATIONS ───────────────────── */
 if (reducer.matches) {
@@ -39,20 +32,38 @@ if (reducer.matches) {
   document.querySelectorAll("section").forEach((s) => {
     s.classList.add("visible");
   });
-
-  /* Stop the marquee */
-  document.querySelectorAll(".marquee-track").forEach((t) => {
-    t.style.animation = "none";
-  });
 }
+
+
 
 /* ─── 4. MOBILE MENU TOGGLE ─────────────────────────────────── */
 if (menuIcon && navbar) {
-  menuIcon.addEventListener("click", () => {
+  menuIcon.addEventListener("click", (e) => {
+    e.stopPropagation();
     const isOpen = navbar.classList.toggle("active");
     menuIcon.classList.toggle("bx-x", isOpen);
     menuIcon.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    
+    if (isOpen) {
+      document.documentElement.classList.add("menu-open");
+      document.body.classList.add("menu-open");
+    } else {
+      document.documentElement.classList.remove("menu-open");
+      document.body.classList.remove("menu-open");
+    }
+  });
+
+  // Click outside to close mobile menu
+  document.addEventListener("click", (e) => {
+    if (navbar.classList.contains("active")) {
+      if (!navbar.contains(e.target) && !menuIcon.contains(e.target)) {
+        navbar.classList.remove("active");
+        menuIcon.classList.remove("bx-x");
+        menuIcon.setAttribute("aria-expanded", "false");
+        document.documentElement.classList.remove("menu-open");
+        document.body.classList.remove("menu-open");
+      }
+    }
   });
 }
 
@@ -63,30 +74,14 @@ if (safeLocalStorageGet("portfolio-theme") === "dark") {
   themeToggle?.classList.replace("bx-moon", "bx-sun");
 }
 
-/* Swap GitHub stats img after DOM is ready (Fix 8) */
-document.addEventListener("DOMContentLoaded", () => {
-  if (safeLocalStorageGet("portfolio-theme") === "dark") {
-    const ghImg = document.getElementById("github-stats-img");
-    if (ghImg) {
-      ghImg.src = "https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=dark&hide_border=true&count_private=true";
-    }
-  }
-});
-
 themeToggle?.addEventListener("click", () => {
   const isDark = document.body.classList.toggle("dark");
   themeToggle.classList.toggle("bx-sun", isDark);
   themeToggle.classList.toggle("bx-moon", !isDark);
   safeLocalStorageSet("portfolio-theme", isDark ? "dark" : "light");
-
-  /* Swap GitHub stats card theme */
-  const ghImg = document.getElementById("github-stats-img");
-  if (ghImg) {
-    ghImg.src = `https://github-readme-stats.vercel.app/api?username=apoorv-jn24&show_icons=true&theme=${isDark ? "dark" : "default"}&hide_border=true&count_private=true`;
-  }
 });
 
-/* ─── 6 + 7. SCROLL REVEAL & SECTION VISIBILITY (consolidated — Fix 6) ── */
+/* ─── 6 + 7. SCROLL REVEAL & SECTION VISIBILITY (consolidated) ── */
 /* Single observer adds both .revealed and .visible simultaneously */
 if (!reducer.matches) {
   const revealObserver = new IntersectionObserver(
@@ -100,21 +95,49 @@ if (!reducer.matches) {
     },
     { threshold: 0.13 }
   );
-  document.querySelectorAll(".reveal-on-scroll, section").forEach((el) => {
+  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
     revealObserver.observe(el);
   });
 }
+
 const header = document.querySelector('.header');
+if (header) {
+  header.classList.add('floating');
+}
+
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 10) {
-        header.classList.remove('floating');
-    } else {
-        header.classList.add('floating');
-    }
+  if (!scrollTicking) {
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+
+      /* Header floating state */
+      if (header) {
+        if (y > 10) {
+          header.classList.remove('floating');
+        } else {
+          header.classList.add('floating');
+        }
+      }
+
+      /* Scroll progress bar */
+      if (scrollProgress) {
+        const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const pct = scrollable > 0 ? (y / scrollable) * 100 : 0;
+        scrollProgress.style.width = `${pct}%`;
+      }
+
+      /* Back to top visibility */
+      if (scrollToTopBtn) {
+        scrollToTopBtn.classList.toggle("visible", y > 300);
+      }
+
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
 }, { passive: true });
 
-// Set initial state
-header.classList.add('floating');
 /* ─── 8. ACTIVE NAV HIGHLIGHT (IntersectionObserver) ────────── */
 (function () {
   const sections = document.querySelectorAll(
@@ -160,74 +183,27 @@ document.addEventListener("DOMContentLoaded", () => {
         navbar.classList.remove("active");
         menuIcon?.classList.remove("bx-x");
         menuIcon?.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+        document.documentElement.classList.remove("menu-open");
+        document.body.classList.remove("menu-open");
       }
     });
   });
 });
 
-/* ─── 10. SCROLL PROGRESS BAR + SCROLL-TO-TOP BUTTON ────────── */
-/* Fix 32 — passive listener + rAF throttle for scroll performance */
+/* ─── 10. SCROLL-TO-TOP BUTTON CLICK ────────────────────────── */
 if (scrollToTopBtn) {
-  let scrollTicking = false;
-  window.addEventListener("scroll", () => {
-    if (!scrollTicking) {
-      requestAnimationFrame(() => {
-        /* Progress bar */
-        if (scrollProgress) {
-          const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-          scrollProgress.style.width = `${pct}%`;
-        }
-        /* Show/hide button */
-        scrollToTopBtn.classList.toggle("visible", window.scrollY > 300);
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
-  }, { passive: true });
-
   scrollToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: reducer.matches ? "auto" : "smooth" });
   });
 }
 
-/* ─── 11. TYPED.JS HERO SUBTITLE ────────────────────────────── */
-/* Use window 'load' event (Fix 1) so both defer scripts are guaranteed parsed */
-window.addEventListener("load", () => {
-  const typedEl = document.querySelector("#typed-output");
-  if (!typedEl) return;
-
-  const roles = [
-    "Full-Stack Developer",
-    "Problem Solver",
-    "Java & React Developer",
-    "Open Source Contributor",
-  ];
-
-  if (reducer.matches || typeof Typed === "undefined") {
-    typedEl.textContent = roles[0];
-    return;
-  }
-
-  new Typed("#typed-output", {
-    strings: roles,
-    typeSpeed: 50,
-    backSpeed: 30,
-    backDelay: 2000,
-    loop: true,
-    showCursor: true,
-    cursorChar: "|",
-  });
-});
-
-/* ─── 12. DYNAMIC COPYRIGHT YEAR ────────────────────────────── */
+/* ─── 11. DYNAMIC COPYRIGHT YEAR ────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.querySelector(".footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
-/* Fix 18 — Textarea character counter */
+/* ─── 12. TEXTAREA CHARACTER COUNTER ────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   const textarea = contactForm?.querySelector('textarea[name="message"]');
   const counter  = contactForm?.querySelector('.char-counter');
@@ -241,25 +217,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* Fix 20 — Project filter bar */
+/* ─── 13. PROJECT FILTER BAR ─────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   const filterBtns   = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
       const filter = btn.dataset.filter;
+
       projectCards.forEach(card => {
         const tags = (card.dataset.tags || '').split(/\s+/);
         const show = filter === 'all' || tags.includes(filter);
-        card.style.display = show ? '' : 'none';
+
+        if (!show) {
+          /* Fade out then hide */
+          card.classList.add('hiding');
+          card.addEventListener('transitionend', function handler() {
+            card.style.display = 'none';
+            card.removeEventListener('transitionend', handler);
+          }, { once: true });
+        } else {
+          /* Show then fade in */
+          card.style.display = '';
+          /* rAF ensures display change paints before class flip */
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => card.classList.remove('hiding'));
+          });
+        }
       });
     });
   });
 });
 
-/* ─── 13. COPY EMAIL TO CLIPBOARD ───────────────────────────── */
+/* ─── 14. COPY EMAIL TO CLIPBOARD ───────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".copy-email-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -301,116 +295,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cb(ok);
   }
 });
-
-/* ─── 14. GITHUB API + CACHING ──────────────────────────────── */
-const GITHUB_CACHE_MS = 30 * 60 * 1000; /* 30 minutes */
-
-const setText = (selector, value, scope = document) => {
-  const el = scope.querySelector(selector);
-  if (el) el.textContent = value;
-};
-
-const formatNumber = (val) => {
-  const n = Number(val);
-  return Number.isFinite(n) ? n.toLocaleString() : "--";
-};
-
-const formatRelativeDate = (dateStr) => {
-  if (!dateStr) return "Recently";
-  const days = Math.max(1, Math.round((Date.now() - new Date(dateStr).getTime()) / 86400000));
-  return days === 1 ? "1 day ago" : `${days} days ago`;
-};
-
-const renderGithubEvents = (events) => {
-  const feed = activitySection?.querySelector("[data-github-events]");
-  if (!feed) return;
-
-  const items = events
-    .filter((e) => ["PushEvent", "CreateEvent", "PullRequestEvent"].includes(e.type))
-    .slice(0, 4);
-
-  if (!items.length) {
-    feed.innerHTML = '<li class="feed-item muted">No recent public activity found.</li>';
-    return;
-  }
-
-  feed.innerHTML = items.map((e) => {
-    let action = "Updated activity";
-    if (e.type === "PushEvent") {
-      const c = e.payload?.commits?.length || 0;
-      action = `Pushed ${c} commit${c === 1 ? "" : "s"} to ${e.repo.name}`;
-    } else if (e.type === "CreateEvent") {
-      action = `Created ${e.payload?.ref_type || "item"} in ${e.repo.name}`;
-    } else if (e.type === "PullRequestEvent") {
-      action = `${e.payload?.action || "Updated"} pull request in ${e.repo.name}`;
-    }
-    return `<li class="feed-item"><span>${action}</span><strong>${formatRelativeDate(e.created_at)}</strong></li>`;
-  }).join("");
-};
-
-const loadGithubActivity = async (username) => {
-  const cacheKey = `github-activity-${username}`;
-  let profile, events;
-
-  /* Try cache first */
-  try {
-    const cached = safeSessionStorageGet(cacheKey);
-    if (cached) {
-      const parsed = JSON.parse(cached);
-      if (Date.now() - parsed.timestamp < GITHUB_CACHE_MS) {
-        profile = parsed.profile;
-        events  = parsed.events;
-      }
-    }
-  } catch { /* corrupt cache — ignore */ }
-
-  /* Fetch if cache miss */
-  if (!profile || !events) {
-    try {
-      const [pRes, eRes] = await Promise.all([
-        fetch(`https://api.github.com/users/${username}`),
-        fetch(`https://api.github.com/users/${username}/events/public?per_page=10`),
-      ]);
-
-      if (!pRes.ok || !eRes.ok) throw new Error("GitHub API error");
-
-      profile = await pRes.json();
-      events  = await eRes.json();
-
-      safeSessionStorageSet(cacheKey, JSON.stringify({ timestamp: Date.now(), profile, events }));
-    } catch {
-      /* Show graceful fallback */
-      setText("[data-github-followers]", "--", activitySection);
-      setText("[data-github-repos]",    "--", activitySection);
-      setText("[data-github-following]","--", activitySection);
-      setText("[data-github-pushes]",   "--", activitySection);
-      setText("[data-github-updated]",  "GitHub API unavailable", activitySection);
-      const feed = activitySection?.querySelector("[data-github-events]");
-      if (feed) feed.innerHTML = '<li class="feed-item muted">GitHub activity is temporarily unavailable.</li>';
-      return;
-    }
-  }
-
-  /* Populate stats */
-  setText("[data-github-followers]", formatNumber(profile.followers),   activitySection);
-  setText("[data-github-repos]",     formatNumber(profile.public_repos), activitySection);
-  setText("[data-github-following]", formatNumber(profile.following),   activitySection);
-  setText(
-    "[data-github-pushes]",
-    formatNumber(events.filter((e) => e.type === "PushEvent").length),
-    activitySection
-  );
-  setText(
-    "[data-github-updated]",
-    `Updated ${formatRelativeDate(events[0]?.created_at)}`,
-    activitySection
-  );
-  renderGithubEvents(events);
-};
-
-if (activitySection?.dataset.githubUsername) {
-  loadGithubActivity(activitySection.dataset.githubUsername);
-}
 
 /* ─── 15. CONTACT FORM VALIDATION HELPERS ───────────────────── */
 const setFieldError = (field, msg) => {
@@ -523,3 +407,24 @@ contactForm?.querySelectorAll("input, textarea").forEach((field) => {
     }
   });
 })();
+
+/* ─── 17. GITHUB HEATMAP ERROR FALLBACK ─────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  const heatmapImg = document.getElementById("githubHeatmap");
+  if (heatmapImg) {
+    heatmapImg.addEventListener("error", () => {
+      const container = heatmapImg.closest(".heatmap-container");
+      if (container) {
+        container.innerHTML = `
+          <div class="heatmap-offline" style="text-align: center; padding: 2.5rem 1.5rem; color: var(--muted-color); font-size: 1.4rem;">
+            <i class='bx bx-wifi-off' style='font-size: 3.2rem; margin-bottom: 0.8rem; display: block; color: var(--main-color);'></i>
+            Contribution graph temporarily offline
+          </div>
+        `;
+      }
+    });
+    if (heatmapImg.complete && heatmapImg.naturalWidth === 0) {
+      heatmapImg.dispatchEvent(new Event("error"));
+    }
+  }
+});

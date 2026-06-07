@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apoorv Jain | Full-Stack Developer</title>
     <meta name="description" content="Apoorv Jain is a full-stack developer building responsive web apps, solving LeetCode problems, and sharing practical project work through a polished personal portfolio.">
+    <meta name="robots" content="index, follow">
     <!-- Social preview metadata -->
     <meta property="og:title" content="Apoorv Jain | Full-Stack Developer">
     <meta property="og:description" content="Explore Apoorv Jain's portfolio featuring full-stack projects, coding activity, technical skills, certifications, and hands-on development experience.">
+    <meta property="og:site_name" content="Apoorv Jain Portfolio">
+    <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://apoorvjainn.vercel.app/">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://apoorvjainn.vercel.app/images/og-image.png">
@@ -22,11 +24,19 @@
     <!-- Fix 19 — theme-color -->
     <meta name="theme-color" content="#754ef9">
     <link rel="canonical" href="https://apoorvjainn.vercel.app/">
-    <link rel="preload" as="image" href="images/portfolio-photo.jpg">
-    <!-- Fix 30 — Google Fonts moved from CSS @import to HTML link tags -->
+    <link rel="preload" as="image" href="images/ProfilePicture.webp">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/ProfilePicture.webp">
+    <!-- Connection warming hints for faster resource discovery -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="preconnect" href="https://ghchart.rshah.org">
+    <link rel="dns-prefetch" href="https://ghchart.rshah.org">
+    <link rel="preconnect" href="https://formspree.io">
+    <link rel="dns-prefetch" href="https://formspree.io">
+    <!-- Poppins Font Optimized (300 weight removed) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Fix 29 — Boxicons with crossorigin for subresource safety -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' crossorigin='anonymous'>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
@@ -52,8 +62,10 @@
         <nav class="navbar">
             <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
+            <a href="#skills">Skills</a>
             <a href="#activity">Activity</a>
             <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
             <a href="#portfolio">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
@@ -72,7 +84,7 @@
 
     <div class="home-img">
         <img
-            src="images/ProfilePicture.jpg"
+            src="images/ProfilePicture.webp"
             alt="Apoorv Jain professional portrait"
             width="400"
             height="400"
@@ -87,7 +99,7 @@
         <h1>Apoorv Jain</h1>
 
         <h3 class="hero-vp">
-            Full-Stack Developer · AI Enthusiast
+            Full-Stack Developer &middot; Problem Solver &middot; DSA Enthusiast
         </h3>
 
         <p>
@@ -109,19 +121,19 @@
         </div>
 
         <div class="social-media">
-            <a href="https://github.com/apoorv-jn24" target="_blank">
+            <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener noreferrer">
                 <i class='bx bxl-github'></i>
             </a>
 
-            <a href="https://x.com/Apoorv_jain24" target="_blank">
+            <a href="https://x.com/Apoorv_jain24" target="_blank" rel="noopener noreferrer">
                 <i class='bx bxl-twitter'></i>
             </a>
 
-            <a href="https://www.linkedin.com/in/apoorv-jain-0b7b14253/" target="_blank">
+            <a href="https://www.linkedin.com/in/apoorv-jain-0b7b14253/" target="_blank" rel="noopener noreferrer">
                 <i class='bx bxl-linkedin'></i>
             </a>
 
-            <a href="https://instagram.com/apoorv_jain24/" target="_blank">
+            <a href="https://instagram.com/apoorv_jain24/" target="_blank" rel="noopener noreferrer">
                 <i class='bx bxl-instagram-alt'></i>
             </a>
         </div>
@@ -346,8 +358,8 @@
                     <h3>Contribution Graph</h3>
                 </div>
 
-                <a href="https://github.com/apoorv-jn24" target="_blank" class="panel-link">
-                    View Profile ↗
+                <a href="https://github.com/apoorv-jn24" target="_blank" rel="noopener noreferrer" class="panel-link">
+                    View Profile <span class="arrow">&nearr;</span>
                 </a>
             </div>
 
@@ -359,6 +371,7 @@
                         width="800"
                         height="128"
                         loading="lazy"
+                        id="githubHeatmap"
                     >
                 </a>
             </div>
@@ -378,13 +391,13 @@
                 </div>
 
                 <a href="https://codolio.com/profile/Apoorv_jain24" target="_blank" rel="noopener noreferrer" class="panel-link">
-                    View Profile &#8599;
+                    View Profile <span class="arrow">&nearr;</span>
                 </a>
             </div>
 
             <div class="leetcode-activity">
                 <img
-                    src="images/leetcode-badge.png"
+                    src="images/leetcode-badge.webp"
                     alt="LeetCode achievement badge"
                     width="180"
                     height="180"
@@ -399,7 +412,7 @@
 
             <div class="activity-footer">
                 <span class="live-dot"></span>
-                <span>Matched with hero stats</span>
+                <span>Stats synced with LeetCode profile</span>
             </div>
         </div>
 
@@ -413,10 +426,10 @@
                 <div class="timeline-content">
                     <span class="timeline-date">Aug 2024 &ndash; Sep 2024 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Java Developer Intern</h3>
-                    <h4 class="timeline-company">
-                        <i class='bx bx-code-curly company-logo-icon' title="CodSoft" aria-label="CodSoft"></i>
+                    <div class="timeline-company">
+                        <i class='bx bx-code-curly company-logo-icon' aria-hidden="true"></i>
                         CodSoft, Remote
-                    </h4>
+                    </div>
                     <ul class="timeline-bullets">
                         <li>Built 3 Java Swing apps (Calculator, Tic Tac Toe, Number Guessing) using OOP &amp; MVC patterns &mdash; reduced UI/logic coupling by ~60%</li>
                         <li>Implemented class-based architecture across all 3 apps, cutting average bug-fix time by ~40% during testing</li>
@@ -428,10 +441,10 @@
                 <div class="timeline-content">
                     <span class="timeline-date">Aug 2023 &ndash; Sep 2023 <span class="timeline-duration">&middot; 2 months</span></span>
                     <h3 class="timeline-title">Python Developer Intern</h3>
-                    <h4 class="timeline-company">
-                        <i class='bx bx-code-curly company-logo-icon' title="CodSoft" aria-label="CodSoft"></i>
+                    <div class="timeline-company">
+                        <i class='bx bx-code-curly company-logo-icon' aria-hidden="true"></i>
                         CodSoft, Remote
-                    </h4>
+                    </div>
                     <ul class="timeline-bullets">
                         <li>Engineered 3 Python utilities (To-Do Manager, Calculator, Quiz App) with modular design &mdash; reduced code duplication by ~50%</li>
                         <li>Implemented robust input validation across all scripts, achieving zero unhandled exceptions in peer review</li>
@@ -451,7 +464,7 @@
             <div class="edu-card edu-left">
                 <span class="edu-date">2022 &ndash; 2026 (Ongoing)</span>
                 <h3 class="edu-title">B.Tech in Computer Science</h3>
-                <h4 class="edu-institution">Coer University, Roorkee</h4>
+                <div class="edu-institution">Coer University, Roorkee</div>
                 <p class="edu-detail">CGPA: <strong>8.72 / 10</strong> &nbsp;&middot;&nbsp; (up to 7th semester)</p>
             </div>
             <div class="edu-dot"></div>
@@ -463,7 +476,7 @@
             <div class="edu-card edu-right">
                 <span class="edu-date">2020 &ndash; 2022</span>
                 <h3 class="edu-title">Higher Secondary (XII)</h3>
-                <h4 class="edu-institution">Yoginath Vidyapeeth</h4>
+                <div class="edu-institution">Yoginath Vidyapeeth</div>
                 <p class="edu-detail">Percentage: <strong>90.4%</strong></p>
             </div>
 
@@ -471,7 +484,7 @@
             <div class="edu-card edu-left">
                 <span class="edu-date">2018 &ndash; 2020</span>
                 <h3 class="edu-title">Secondary (X)</h3>
-                <h4 class="edu-institution">Yoginath Vidyapeeth</h4>
+                <div class="edu-institution">Yoginath Vidyapeeth</div>
                 <p class="edu-detail">Percentage: <strong>87.6%</strong></p>
             </div>
             <div class="edu-dot"></div>
@@ -498,7 +511,7 @@
 
     <div class="project-frame">
         <div class="project-cover">
-    <img src="images/StudyBuddyProject.png" alt="Study Buddy App" class="project-img">
+    <img src="images/StudyBuddyProject.webp" alt="Study Buddy App" class="project-img" width="500" height="300" loading="lazy">
 
     <div class="overlay">
         <span class="project-cover-title">Study Buddy</span>
@@ -527,11 +540,11 @@
         </div>
 
         <div class="project-btns">
-            <a href="https://study-buddy-pi-wheat.vercel.app/" target="_blank" rel="noopener" class="btn-demo">
+            <a href="https://study-buddy-pi-wheat.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-demo">
                 Live Demo &#8599;
             </a>
 
-            <a href="https://github.com/apoorv-jn24/study-buddy" target="_blank" rel="noopener" class="btn-github">
+            <a href="https://github.com/apoorv-jn24/study-buddy" target="_blank" rel="noopener noreferrer" class="btn-github">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
                 </svg>
@@ -545,7 +558,7 @@
                 <span class="case-study-number">02</span>
                 <div class="project-frame">
                     <div class="project-cover">
-                        <img src="images/Personal Portfolio Project.png" alt="Portfolio Project" class="project-img">
+                        <img src="images/PersonalPortfolioProject.webp" alt="Portfolio Project" class="project-img" width="500" height="300" loading="lazy">
                         <div class="overlay">
                             <span class="project-cover-title">Portfolio</span>
                             <span class="project-cover-stack">HTML &middot; CSS &middot; JavaScript</span>
@@ -566,8 +579,8 @@
                         <span class="tech-badge">JavaScript</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorvjainn.vercel.app/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <a href="https://github.com/apoorv-jn24/Personal-Porfolio" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://apoorvjainn.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-demo">Live Demo &#8599;</a>
+                        <a href="https://github.com/apoorv-jn24/Personal-Porfolio" target="_blank" rel="noopener noreferrer" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -580,7 +593,7 @@
                 <span class="case-study-number">03</span>
                 <div class="project-frame">
                     <div class="project-cover">
-                        <img src="images/shopping-clone.png" alt="Shopping Clone UI" class="project-img">
+                        <img src="images/shopping-clone.webp" alt="Shopping Clone UI" class="project-img" width="500" height="300" loading="lazy">
 
                         <div class="overlay">
                             <span class="project-cover-title">Shopping Clone</span>
@@ -602,8 +615,8 @@
                         <span class="tech-badge">Responsive UI</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/Shopping-Website-Clone/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <a href="https://github.com/apoorv-jn24/Shopping-Website-Clone" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://apoorv-jn24.github.io/Shopping-Website-Clone/" target="_blank" rel="noopener noreferrer" class="btn-demo">Live Demo &#8599;</a>
+                        <a href="https://github.com/apoorv-jn24/Shopping-Website-Clone" target="_blank" rel="noopener noreferrer" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -616,7 +629,7 @@
                 <span class="case-study-number">04</span>
                 <div class="project-frame">
                    <div class="project-cover">
-                            <img src="images/Everest Electricals.png" alt="Electronic Shop Website" class="project-img">
+                            <img src="images/EverestElectricals.webp" alt="Electronic Shop Website" class="project-img" width="500" height="300" loading="lazy">
 
                             <div class="overlay">
                                 <span class="project-cover-title">Electronic Shop</span>
@@ -638,8 +651,8 @@
                         <span class="tech-badge">JavaScript</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/Electronic-Shop/" target="_blank" rel="noopener" class="btn-demo">Live Demo &#8599;</a>
-                        <a href="https://github.com/apoorv-jn24/Electronic-Shop" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://apoorv-jn24.github.io/Electronic-Shop/" target="_blank" rel="noopener noreferrer" class="btn-demo">Live Demo &#8599;</a>
+                        <a href="https://github.com/apoorv-jn24/Electronic-Shop" target="_blank" rel="noopener noreferrer" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -652,7 +665,7 @@
                 <span class="case-study-number">05</span>
                 <div class="project-frame">
                     <div class="project-cover">
-                        <img src="images/tradehub.png" alt="TradeHub App" class="project-img">
+                        <img src="images/tradehub.webp" alt="TradeHub App" class="project-img" width="500" height="300" loading="lazy">
 
                         <div class="overlay">
                             <span class="project-cover-title">TradeHub</span>
@@ -674,8 +687,8 @@
                         <span class="tech-badge">UI Prototype</span>
                     </div>
                     <div class="project-btns">
-                        <a href="https://apoorv-jn24.github.io/TradeHub/" target="_blank" rel="noopener" class="btn-demo">Frontend Demo &#8599;</a>
-                        <a href="https://github.com/apoorv-jn24/TradeHub" target="_blank" rel="noopener" class="btn-github">
+                        <a href="https://apoorv-jn24.github.io/TradeHub/" target="_blank" rel="noopener noreferrer" class="btn-demo">Frontend Demo &#8599;</a>
+                        <a href="https://github.com/apoorv-jn24/TradeHub" target="_blank" rel="noopener noreferrer" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -688,7 +701,7 @@
                 <span class="case-study-number">06</span>
                 <div class="project-frame">
                     <div class="project-cover">
-                        <img src="images/budget-tracker.png" alt="Budget Tracker app preview" class="project-img">
+                        <img src="images/budget-tracker.webp" alt="Budget Tracker app preview" class="project-img" width="500" height="300" loading="lazy">
                         <div class="overlay">
                             <span class="project-status">In Progress</span>
                             <span class="project-cover-title">Budget Tracker</span>
@@ -710,8 +723,8 @@
                         <span class="tech-badge">CSS</span>
                     </div>
                     <div class="project-btns">
-                        <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">In Progress</button>
-                        <a href="https://github.com/apoorv-jn24/Budget-Tracker" target="_blank" rel="noopener" class="btn-github">
+                        <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Expected Q3 2026</button>
+                        <a href="https://github.com/apoorv-jn24/Budget-Tracker" target="_blank" rel="noopener noreferrer" class="btn-github">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
                             GitHub
                         </a>
@@ -725,7 +738,7 @@
 
     <div class="project-frame">
         <div class="project-cover">
-            <img src="images/videomind-ai.png" alt="VideoMind AI app preview" class="project-img">
+            <img src="images/videomind-ai.webp" alt="VideoMind AI app preview" class="project-img" width="500" height="300" loading="lazy">
             <div class="overlay">
                 <span class="project-status">In Progress</span>
                 <span class="project-cover-title">VideoMind AI</span>
@@ -754,9 +767,9 @@
         </div>
 
         <div class="project-btns">
-            <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">In Progress</button>
+            <button class="btn-demo btn-demo--disabled" disabled aria-disabled="true">Expected Q4 2026</button>
 
-            <a href="https://github.com/apoorv-jn24/VideoMInd-Ai" target="_blank" rel="noopener" class="btn-github">
+            <a href="https://github.com/apoorv-jn24/VideoMInd-Ai" target="_blank" rel="noopener noreferrer" class="btn-github">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/>
                 </svg>
@@ -784,24 +797,26 @@
             </div>
             <form action="https://formspree.io/f/xkokeypz" method="POST" novalidate id="contactForm">
                 <input type="hidden" name="_subject" value="Portfolio Contact">
-                <input type="hidden" name="_next" value="https://apoorvjainn.vercel.app/#contact">
+                <!-- Honeypot spam protection -->
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
                 <div class="cf-field">
                     <i class='bx bx-user cf-icon'></i>
                     <input type="text" name="name" placeholder="Your Name" required>
-                    <small class="error-message"></small>
+                    <span role="alert" class="error-message"></span>
                 </div>
 
                 <div class="cf-field">
                     <i class='bx bx-envelope cf-icon'></i>
                     <input type="email" name="email" placeholder="Your Email" required>
-                    <small class="error-message"></small>
+                    <span role="alert" class="error-message"></span>
                 </div>
 
                 <!-- Fix 18 — textarea with maxlength + char counter -->
-                <div class="cf-field">
+                <div class="cf-field cf-field--textarea">
+                    <i class='bx bx-message-detail cf-icon'></i>
                     <textarea name="message" placeholder="Your Message" required maxlength="1000"></textarea>
-                    <small class="error-message"></small>
+                    <span role="alert" class="error-message"></span>
                     <span class="char-counter">0 / 1000</span>
                 </div>
 
@@ -846,7 +861,6 @@
     </button>
 
     <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js" defer></script>
     <script src="js/script.js" defer></script>
 </body>
 </html>
